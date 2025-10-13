@@ -42,7 +42,7 @@ async function runPythonCode(code, outputId) {
 
 // Controle de navegação entre etapas
 let currentStep = 1;
-const totalSteps = 14; 
+const totalSteps = 15; 
 
 // Mostrar etapa atual
 function showStep(stepNumber) {

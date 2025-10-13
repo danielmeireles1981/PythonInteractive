@@ -31,20 +31,21 @@
             <div class="sidebar">
                 <h3>Conteúdo da Aula</h3>
                 <ul>
-                    <li class="active" data-step="1">Situação-Problema e Objetivos</li>
-                    <li data-step="2">O que é Backend?</li>
-                    <li data-step="3">Linguagens de Programação</li>
-                    <li data-step="4">Por que Python?</li>
-                    <li data-step="5">Variáveis e Operadores</li>
-                    <li data-step="6">Primeiros Passos em Python</li>
-                    <li data-step="7">Controlando o Fluxo: Condicionais e Repetição</li>
-                    <li data-step="8">Estruturas de Dados: As Caixas de Ferramentas</li>
-                    <li data-step="9">Boas Práticas de Código</li>
-                    <li data-step="10">Caça-Palavras Python</li>
-                    <li data-step="11">Construtor de Código: Desafios</li>
-                    <li data-step="12">Avaliação: Exercícios Práticos</li>
-                    <li data-step="14">Desafio Final</li>
-                    <li data-step="13">Jogos Interativos</li>
+                    <li class="active" data-step="1">Quem é você?</li>
+                    <li data-step="2">Situação-Problema e Objetivos</li>
+                    <li data-step="3">O que é Backend?</li>
+                    <li data-step="4">Linguagens de Programação</li>
+                    <li data-step="5">Por que Python?</li>
+                    <li data-step="6">Variáveis e Operadores</li>
+                    <li data-step="7">Primeiros Passos em Python</li>
+                    <li data-step="8">Controlando o Fluxo: Condicionais e Repetição</li>
+                    <li data-step="9">Estruturas de Dados: As Caixas de Ferramentas</li>
+                    <li data-step="10">Boas Práticas de Código</li>
+                    <li data-step="11">Caça-Palavras Python</li>
+                    <li data-step="12">Construtor de Código: Desafios</li>
+                    <li data-step="13">Avaliação: Exercícios Práticos</li>
+                    <li data-step="14">Jogos Interativos</li>
+                    <li data-step="15">Desafio Final</li>
                     
                 </ul>
 
@@ -55,8 +56,21 @@
             </div>
 
             <div class="main-content">
-                <!-- Etapa 1: Backend -->
+                <!-- Etapa 1: Quem é você? (NOVA) -->
                 <div class="step active" id="step-1">
+                    <h2>Quem é você?</h2>
+                    <p>Antes de começarmos, gostaria de conhecer um pouco mais sobre vocês. Por favor, respondam às perguntas no quadro abaixo para que eu possa adaptar a aula da melhor forma possível!</p>
+                    <div class="game-iframe-container" style="height: 500px;">
+                        <iframe src="https://www.menti.com/placeholder" frameborder="0" allowfullscreen title="Mentimeter - Quem é você?"></iframe>
+                    </div>
+                    <div class="nav-buttons">
+                        <button class="btn btn-secondary" disabled>Anterior</button>
+                        <button class="btn btn-primary" id="next-1">Próximo</button>
+                    </div>
+                </div>
+
+                <!-- Etapa 2: Backend -->
+                <div class="step" id="step-2">
                     <span class="bloom-level">Nível 1: Contextualização</span>
                     <h2>Situação-Problema: A Escolha da Tecnologia Certa</h2>
 
@@ -93,12 +107,12 @@
 
                     <div class="nav-buttons">
                         <button class="btn btn-secondary" disabled>Anterior</button>
-                        <button class="btn btn-primary" id="next-1">Próximo</button>
+                        <button class="btn btn-primary" id="next-2">Próximo</button>
                     </div>
                 </div>
 
-                <!-- Etapa 2: Linguagens -->
-                <div class="step" id="step-2">
+                <!-- Etapa 3: Linguagens -->
+                <div class="step" id="step-3">
                     <span class="bloom-level">Nível 1: Compreensão</span>
                     <h2>O que é Backend?</h2>
                     <p>O <strong>backend</strong> é a parte "invisível" de um sistema, o motor que trabalha nos
@@ -165,11 +179,11 @@
                         </div>
                     </div>
                     <div class="nav-buttons">
-                        <button class="btn btn-secondary" id="prev-2">Anterior</button>
-                        <button class="btn btn-primary" id="next-2">Próximo</button>
+                        <button class="btn btn-secondary" id="prev-3">Anterior</button>
+                        <button class="btn btn-primary" id="next-3">Próximo</button>
                     </div>
                 </div>
-                <div class="step" id="step-3">
+                <div class="step" id="step-4">
                     <span class="bloom-level">Nível 2: Conhecimento</span>
                     <h2>Linguagens de Programação</h2>
 
@@ -275,13 +289,13 @@
                     </div>
 
                     <div class="nav-buttons">
-                        <button class="btn btn-secondary" id="prev-3">Anterior</button>
-                        <button class="btn btn-primary" id="next-3">Próximo</button>
+                        <button class="btn btn-secondary" id="prev-4">Anterior</button>
+                        <button class="btn btn-primary" id="next-4">Próximo</button>
                     </div>
                 </div>
 
-                <!-- Etapa 3: Python -->
-                <div class="step" id="step-4">
+                <!-- Etapa 4: Python -->
+                <div class="step" id="step-5">
                     <span class="bloom-level">Nível 3: Aplicação</span>
                     <h2>Por que escolher Python?</h2>
 
@@ -431,13 +445,13 @@
                     </div>
 
                     <div class="nav-buttons">
-                        <button class="btn btn-secondary" id="prev-4">Anterior</button>
-                        <button class="btn btn-primary" id="next-4">Próximo</button>
+                        <button class="btn btn-secondary" id="prev-5">Anterior</button>
+                        <button class="btn btn-primary" id="next-5">Próximo</button>
                     </div>
                 </div>
 
-                <!-- Etapa 5: Variáveis e Operadores -->
-                <div class="step" id="step-5">
+                <!-- Etapa 6: Variáveis e Operadores -->
+                <div class="step" id="step-6">
                     <span class="bloom-level">Nível 3: Aplicação</span>
                     <h2>Variáveis e Operadores em Python</h2>
                     <p>Antes de programar, vamos entender os blocos de construção fundamentais: variáveis e operadores.
@@ -532,13 +546,13 @@
                     </div>
 
                     <div class="nav-buttons">
-                        <button class="btn btn-secondary" id="prev-5">Anterior</button>
-                        <button class="btn btn-primary" id="next-5">Próximo</button>
+                        <button class="btn btn-secondary" id="prev-6">Anterior</button>
+                        <button class="btn btn-primary" id="next-6">Próximo</button>
                     </div>
                 </div>
 
-                <!-- Etapa 6: Primeiros Passos (MOVIDO) -->
-                <div class="step" id="step-6">
+                <!-- Etapa 7: Primeiros Passos (MOVIDO) -->
+                <div class="step" id="step-7">
                     <span class="bloom-level">Nível 3: Aplicação Guiada</span>
                     <h2>Primeiros Passos em Python</h2>
 
@@ -643,13 +657,13 @@ print("Potência:", a ** b)
                     </div>
 
                     <div class="nav-buttons">
-                        <button class="btn btn-secondary" id="prev-6">Anterior</button>
-                        <button class="btn btn-primary" id="next-6">Próximo</button>
+                        <button class="btn btn-secondary" id="prev-7">Anterior</button>
+                        <button class="btn btn-primary" id="next-7">Próximo</button>
                     </div>
                 </div>
 
-                <!-- Etapa 7: Condicionais e Repetição (NOVA) -->
-                <div class="step" id="step-7">
+                <!-- Etapa 8: Condicionais e Repetição (NOVA) -->
+                <div class="step" id="step-8">
                     <span class="bloom-level">Nível 4: Análise</span>
                     <h2>Controlando o Fluxo: Condicionais e Repetição</h2>
                     <p>Agora que você conhece o básico, vamos dar superpoderes ao seu código! Vamos ensiná-lo a <strong>tomar decisões</strong> e a <strong>repetir tarefas</strong>. Bem-vindo à caixa de ferramentas do programador!</p>
@@ -735,13 +749,13 @@ for tarefa in tarefas:
                     </div>
 
                     <div class="nav-buttons">
-                        <button class="btn btn-secondary" id="prev-7">Anterior</button>
-                        <button class="btn btn-primary" id="next-7">Próximo</button>
+                        <button class="btn btn-secondary" id="prev-8">Anterior</button>
+                        <button class="btn btn-primary" id="next-8">Próximo</button>
                     </div>
                 </div>
 
-                <!-- Etapa 8: Estruturas de Dados (NOVA) -->
-                <div class="step" id="step-8">
+                <!-- Etapa 9: Estruturas de Dados (NOVA) -->
+                <div class="step" id="step-9">
                     <span class="bloom-level">Nível 4: Análise</span>
                     <h2>Estruturas de Dados: As Caixas de Ferramentas</h2>
                     <p>Imagine que você tem vários itens para guardar. Em vez de criar uma variável para cada um, você pode usar "caixas" especiais chamadas <strong>Estruturas de Dados</strong>. Vamos conhecer as três principais do Python!</p>
@@ -850,13 +864,13 @@ print("Profissão:", usuario["profissao"])</textarea>
                     </div>
 
                     <div class="nav-buttons">
-                        <button class="btn btn-secondary" id="prev-8">Anterior</button>
-                        <button class="btn btn-primary" id="next-8">Próximo</button>
+                        <button class="btn btn-secondary" id="prev-9">Anterior</button>
+                        <button class="btn btn-primary" id="next-9">Próximo</button>
                     </div>
                 </div>
 
-                <!-- Etapa 9: Boas Práticas -->
-                <div class="step" id="step-9">
+                <!-- Etapa 10: Boas Práticas -->
+                <div class="step" id="step-10">
                     <span class="bloom-level">Nível 4: Análise</span>
                     <h2>Boas Práticas: Escrevendo Código Limpo</h2>
                     <p>Escrever código que funciona é só o começo. Um bom programador escreve código que outras pessoas
@@ -894,13 +908,13 @@ print("Profissão:", usuario["profissao"])</textarea>
                     </div>
 
                     <div class="nav-buttons">
-                        <button class="btn btn-secondary" id="prev-9">Anterior</button>
-                        <button class="btn btn-primary" id="next-9">Próximo</button>
+                        <button class="btn btn-secondary" id="prev-10">Anterior</button>
+                        <button class="btn btn-primary" id="next-10">Próximo</button>
                     </div>
                 </div>
 
-                <!-- Etapa 10: Caça-Palavras (NOVA) -->
-                <div class="step" id="step-10">
+                <!-- Etapa 11: Caça-Palavras (NOVA) -->
+                <div class="step" id="step-11">
                     <span class="bloom-level">Nível 2: Memorização</span>
                     <h2>Caça-Palavras Python</h2>
                     <p>Vamos fazer uma pausa divertida para reforçar os termos que aprendemos. Encontre as palavras na grade abaixo. Clique e arraste para selecionar.</p>
@@ -922,13 +936,13 @@ print("Profissão:", usuario["profissao"])</textarea>
                     </div>
 
                     <div class="nav-buttons">
-                        <button class="btn btn-secondary" id="prev-10">Anterior</button>
-                        <button class="btn btn-primary" id="next-10">Próximo</button>
+                        <button class="btn btn-secondary" id="prev-11">Anterior</button>
+                        <button class="btn btn-primary" id="next-11">Próximo</button>
                     </div>
                 </div>
 
-                <!-- Etapa 10: Construtor de Código (Unificado) -->
-                <div class="step" id="step-11">
+                <!-- Etapa 12: Construtor de Código (Unificado) -->
+                <div class="step" id="step-12">
                     <span class="bloom-level">Nível 5: Aplicação</span>
                     <h2>Construtor de Código: Desafios</h2>
                     <p>Hora de colocar a mão na massa! Organize os blocos de código para resolver os desafios.</p>
@@ -1032,13 +1046,13 @@ print("Profissão:", usuario["profissao"])</textarea>
                     </div>
 
                     <div class="nav-buttons">
-                        <button class="btn btn-secondary" id="prev-11">Anterior</button>
-                        <button class="btn btn-primary" id="next-11">Próximo</button>
+                        <button class="btn btn-secondary" id="prev-12">Anterior</button>
+                        <button class="btn btn-primary" id="next-12">Próximo</button>
                     </div>
                 </div>
 
-                <!-- Etapa 12: Exercícios -->
-                <div class="step" id="step-12">
+                <!-- Etapa 13: Exercícios -->
+                <div class="step" id="step-13">
                     <span class="bloom-level">Nível 6: Avaliação</span>
                     <h2>Exercícios Práticos</h2>
                     <p>Vamos testar tudo o que você aprendeu! Responda às 10 perguntas abaixo. Cada acerto vale 1 ponto.</p>
@@ -1152,13 +1166,13 @@ print("Profissão:", usuario["profissao"])</textarea>
                     </div>
 
                     <div class="nav-buttons">
-                        <button class="btn btn-secondary" id="prev-12">Anterior</button>
-                        <button class="btn btn-primary" id="next-12">Próximo</button>
+                        <button class="btn btn-secondary" id="prev-13">Anterior</button>
+                        <button class="btn btn-primary" id="next-13">Próximo</button>
                     </div>
                 </div>
 
-                <!-- Etapa 13: Jogos Interativos (NOVA) -->
-                <div class="step" id="step-13">
+                <!-- Etapa 14: Jogos Interativos (NOVA) -->
+                <div class="step" id="step-14">
                     <span class="bloom-level">Nível Extra: Prática Lúdica</span>
                     <h2>Jogos Interativos</h2>
                     <p>Hora de relaxar e praticar o que você aprendeu de uma forma divertida! Clique em um dos jogos abaixo para começar. Eles abrirão em uma nova aba.</p>
@@ -1192,13 +1206,13 @@ print("Profissão:", usuario["profissao"])</textarea>
                     </div>
 
                     <div class="nav-buttons">
-                        <button class="btn btn-secondary" id="prev-13">Anterior</button>
-                        <button class="btn btn-primary" id="next-13">Próximo</button>
+                        <button class="btn btn-secondary" id="prev-14">Anterior</button>
+                        <button class="btn btn-primary" id="next-14">Próximo</button>
                     </div>
                 </div>
 
-                <!-- Etapa 14: Projeto Final -->
-                <div class="step" id="step-14">
+                <!-- Etapa 15: Projeto Final -->
+                <div class="step" id="step-15">
                     <span class="bloom-level">Nível 7: Criação</span>
                     <h2>Desafio Final - Protótipo InovaTech</h2>
 
@@ -1264,7 +1278,7 @@ print("Profissão:", usuario["profissao"])</textarea>
                     </div>
 
                     <div class="nav-buttons">
-                        <button class="btn btn-secondary" id="prev-14">Anterior</button>
+                        <button class="btn btn-secondary" id="prev-15">Anterior</button>
                         <button class="btn btn-brand" id="finish-btn">Finalizar Projeto</button>
                     </div>
                 </div>
