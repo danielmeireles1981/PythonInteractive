@@ -45,27 +45,85 @@ let currentStep = 1;
 const totalSteps = 15; 
 
 // Mostrar etapa atual
+function updateProgressBar(current, total) {
+    const progressBar = document.getElementById('progress-bar');
+    const percentage = (current / total) * 100;
+    progressBar.style.width = `${percentage}%`;
+}
+
 function showStep(stepNumber) {
-    document.querySelectorAll('.step').forEach(step => {
-        step.classList.remove('active');
-    });
-    document.getElementById(`step-${stepNumber}`).classList.add('active');
-    
+    const currentActiveStep = document.querySelector('.step.active');
+    const newStep = document.getElementById(`step-${stepNumber}`);
+
+    if (currentActiveStep && currentActiveStep !== newStep) {
+        currentActiveStep.classList.add('fade-out');
+
+        currentActiveStep.addEventListener('animationend', () => {
+            currentActiveStep.classList.remove('active', 'fade-out');
+            newStep.classList.add('active');
+        }, { once: true });
+    } else if (!currentActiveStep) {
+        newStep.classList.add('active');
+    }
+
     // Atualizar menu lateral
     document.querySelectorAll('.sidebar li').forEach(item => {
         item.classList.remove('active');
     });
     document.querySelector(`.sidebar li[data-step="${stepNumber}"]`).classList.add('active');
-    
+
+    // Atualizar a barra de progresso
+    updateProgressBar(stepNumber, totalSteps);
+
     currentStep = stepNumber;
 }
 
 // Configurar navegação pelo menu lateral
 document.querySelectorAll('.sidebar li').forEach(item => {
     item.addEventListener('click', function() {
+        // Fecha o menu em telas pequenas ao clicar em um item
+        if (window.innerWidth <= 768) {
+            document.body.classList.remove('sidebar-open');
+        }
         const stepNumber = parseInt(this.getAttribute('data-step'));
         showStep(stepNumber);
     });
+});
+
+// Lógica para o menu recolhível em telas pequenas
+const sidebarToggle = document.getElementById('sidebar-toggle');
+const pageOverlay = document.getElementById('page-overlay');
+
+sidebarToggle.addEventListener('click', () => {
+    document.body.classList.toggle('sidebar-open');
+});
+
+pageOverlay.addEventListener('click', () => {
+    document.body.classList.remove('sidebar-open');
+});
+
+// Lógica para alternar o tema (Dark/Light Mode)
+const themeToggle = document.getElementById('theme-toggle');
+
+themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    
+    // Salvar a preferência no localStorage
+    if (document.body.classList.contains('dark-mode')) {
+        localStorage.setItem('theme', 'dark');
+    } else {
+        localStorage.setItem('theme', 'light');
+    }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Verificar se há um tema salvo no localStorage
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+    }
+
+    updateProgressBar(currentStep, totalSteps); // Define o progresso inicial
 });
 
 // Configurar botões de navegação

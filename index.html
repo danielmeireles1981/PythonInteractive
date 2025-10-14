@@ -5,24 +5,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Python para Iniciantes - Aula Interativa</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Fim Google Fonts -->
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <header>
-        <div class="container">
+        <div class="container header-container">
+            <!-- Botão para abrir/fechar o menu em telas pequenas -->
+            <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Abrir menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
             <div class="header-content">
-                <div class="logo">
-                    <div class="logo-icon">🐍</div>
-                    <div>
-                        <h1>Aula - Introdução a Python</h1>
-                        <div class="subtitle">Por Daniel Meireles do Rego</div>
-                    </div>
-                    <div class="brand-badge">ESCOLA DE TECNOLOGIA</div>
+                <div class="header-title-container">
+                    <h1>Aula - Introdução a Python</h1>
+                   
                 </div>
             </div>
+            <!-- Botão de Alternância de Tema -->
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Alternar tema">
+                <span class="icon-moon">🌙</span>
+                <span class="icon-sun">☀️</span>
+            </button>
         </div>
     </header>
+
+    <!-- Barra de Progresso -->
+    <div id="progress-container">
+        <div id="progress-bar"></div>
+    </div>
+
+    <!-- Overlay para o fundo quando o menu estiver aberto -->
+    <div class="overlay" id="page-overlay"></div>
 
     <div class="container">
         <!-- Removido o banner antigo -->
@@ -31,27 +52,22 @@
             <div class="sidebar">
                 <h3>Conteúdo da Aula</h3>
                 <ul>
-                    <li class="active" data-step="1">Quem é você?</li>
-                    <li data-step="2">Situação-Problema e Objetivos</li>
-                    <li data-step="3">O que é Backend?</li>
-                    <li data-step="4">Linguagens de Programação</li>
-                    <li data-step="5">Por que Python?</li>
-                    <li data-step="6">Variáveis e Operadores</li>
-                    <li data-step="7">Primeiros Passos em Python</li>
-                    <li data-step="8">Controlando o Fluxo: Condicionais e Repetição</li>
-                    <li data-step="9">Estruturas de Dados: As Caixas de Ferramentas</li>
-                    <li data-step="10">Boas Práticas de Código</li>
-                    <li data-step="11">Caça-Palavras Python</li>
-                    <li data-step="12">Construtor de Código: Desafios</li>
-                    <li data-step="13">Avaliação: Exercícios Práticos</li>
-                    <li data-step="14">Jogos Interativos</li>
-                    <li data-step="15">Desafio Final</li>
+                    <li class="active" data-step="1">🤔 Quem é você?</li>
+                    <li data-step="2">🎯 Situação-Problema e Objetivos</li>
+                    <li data-step="3">⚙️ O que é Backend?</li>
+                    <li data-step="4">📚 Linguagens de Programação</li>
+                    <li data-step="5">🐍 Por que Python?</li>
+                    <li data-step="6">📦 Variáveis e Operadores</li>
+                    <li data-step="7">▶️ Primeiros Passos em Python</li>
+                    <li data-step="8">🚦 Controlando o Fluxo</li>
+                    <li data-step="9">🧰 Estruturas de Dados</li>
+                    <li data-step="10">✨ Boas Práticas de Código</li>
+                    <li data-step="11">🔍 Caça-Palavras Python</li>
+                    <li data-step="12">🧩 Construtor de Código</li>
+                    <li data-step="13">📝 Avaliação: Exercícios</li>
+                    <li data-step="14">🎮 Jogos Interativos</li>
+                    <li data-step="15">🏆 Desafio Final</li>
                     
-                </ul>
-
-                <h3>Recursos Extras</h3>
-                <ul>
-                    <li><a href="https://www.python.org/doc/" target="_blank">📄 Documentação Python</a></li>
                 </ul>
             </div>
 
@@ -1299,6 +1315,20 @@ print("Profissão:", usuario["profissao"])</textarea>
             </div>
         </div>
     </div>
+
+    <!-- Rodapé -->
+    <footer>
+        <div class="container">
+            <h3>Recursos Extras</h3>
+            <ul>
+                <li><a href="https://www.python.org/doc/" target="_blank">📄 Documentação Oficial do Python</a></li>
+                <li><a href="https://www.djangoproject.com/" target="_blank">🚀 Framework Django</a></li>
+                <li><a href="https://flask.palletsprojects.com/" target="_blank">💧 Framework Flask</a></li>
+            </ul>
+            <p class="copyright">&copy; 2025 Escola de Tecnologia. Todos os direitos reservados.</p>
+            <p class="developer-credit">Desenvolvido por Daniel Meireles do Rego</p>
+        </div>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
