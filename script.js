@@ -42,65 +42,58 @@ async function runPythonCode(code, outputId) {
 
 // Controle de navegação entre etapas
 let currentStep = 1;
-const totalSteps = 15; 
+const totalSteps = 16; 
 
-// Mostrar etapa atual
-function updateProgressBar(current, total) {
-    const progressBar = document.getElementById('progress-bar');
-    const percentage = (current / total) * 100;
-    progressBar.style.width = `${percentage}%`;
+function saveAndNotifyProgress(stepNumber) {
+    // Salva o progresso no localStorage. Desbloqueia a PRÓXIMA etapa.
+    const unlockedStep = stepNumber + 1;
+    localStorage.setItem('unlockedStep', unlockedStep);
+
+    // Envia uma mensagem para a página pai (o mapa) para que ela saiba do progresso
+    // Progresso reativado!
+    if (window.parent) {
+        window.parent.postMessage({
+            type: 'UPDATE_PROGRESS',
+            unlockedStep: unlockedStep
+        }, '*'); // Em produção, use a URL exata da página do mapa no lugar de '*'
+    }
 }
 
 function showStep(stepNumber) {
     const currentActiveStep = document.querySelector('.step.active');
     const newStep = document.getElementById(`step-${stepNumber}`);
 
-    if (currentActiveStep && currentActiveStep !== newStep) {
-        currentActiveStep.classList.add('fade-out');
-
-        currentActiveStep.addEventListener('animationend', () => {
-            currentActiveStep.classList.remove('active', 'fade-out');
-            newStep.classList.add('active');
-        }, { once: true });
-    } else if (!currentActiveStep) {
+    if (currentActiveStep) {
+        currentActiveStep.classList.remove('active');
+    }
+    if (newStep) {
         newStep.classList.add('active');
     }
 
-    // Atualizar menu lateral
-    document.querySelectorAll('.sidebar li').forEach(item => {
-        item.classList.remove('active');
-    });
-    document.querySelector(`.sidebar li[data-step="${stepNumber}"]`).classList.add('active');
-
-    // Atualizar a barra de progresso
-    updateProgressBar(stepNumber, totalSteps);
-
     currentStep = stepNumber;
+
+    // Salva o progresso sempre que uma nova etapa é exibida
+    saveAndNotifyProgress(stepNumber);
 }
 
-// Configurar navegação pelo menu lateral
-document.querySelectorAll('.sidebar li').forEach(item => {
-    item.addEventListener('click', function() {
-        // Fecha o menu em telas pequenas ao clicar em um item
-        if (window.innerWidth <= 768) {
-            document.body.classList.remove('sidebar-open');
-        }
-        const stepNumber = parseInt(this.getAttribute('data-step'));
-        showStep(stepNumber);
-    });
-});
+function checkStepCompletion(stepNumber) {
+    const stepElement = document.getElementById(`step-${stepNumber}`);
+    if (!stepElement) return;
 
-// Lógica para o menu recolhível em telas pequenas
-const sidebarToggle = document.getElementById('sidebar-toggle');
-const pageOverlay = document.getElementById('page-overlay');
+    const totalActivities = parseInt(stepElement.dataset.totalActivities || '0');
+    if (totalActivities === 0) { // Se a etapa não tem atividades, o botão já vem habilitado
+        const unlockBtn = stepElement.querySelector('.btn-unlock-next');
+        if (unlockBtn) unlockBtn.disabled = false;
+        return;
+    }
 
-sidebarToggle.addEventListener('click', () => {
-    document.body.classList.toggle('sidebar-open');
-});
+    const completedActivities = stepElement.querySelectorAll('.trackable-activity.completed').length;
 
-pageOverlay.addEventListener('click', () => {
-    document.body.classList.remove('sidebar-open');
-});
+    if (completedActivities >= totalActivities) {
+        const unlockBtn = stepElement.querySelector('.btn-unlock-next');
+        if (unlockBtn) unlockBtn.disabled = false;
+    }
+}
 
 // Lógica para alternar o tema (Dark/Light Mode)
 const themeToggle = document.getElementById('theme-toggle');
@@ -123,28 +116,74 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.add('dark-mode');
     }
 
-    updateProgressBar(currentStep, totalSteps); // Define o progresso inicial
+    // Lógica para o formulário da Etapa 1
+    const studentForm = document.getElementById('student-info-form');
+    if (studentForm) {
+        studentForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o envio padrão
+
+            // Coletar dados do formulário
+            const name = document.getElementById('form-student-name').value;
+            const age = document.getElementById('student-age').value;
+            const experienceLevel = document.querySelector('input[name="experience-level"]:checked').value;
+            const interestArea = document.querySelector('input[name="interest-area"]:checked').value;
+
+            // Criar objeto JSON
+            const studentData = {
+                name: name,
+                age: parseInt(age),
+                experienceLevel: experienceLevel,
+                interestArea: interestArea
+            };
+
+            // Armazena os dados do aluno no localStorage para uso posterior
+            localStorage.setItem('studentData', JSON.stringify(studentData));
+            console.log('Dados do Aluno salvos no localStorage:', JSON.stringify(studentData));
+
+            // Feedback para o usuário
+            const feedbackElement = document.getElementById('form-feedback');
+            feedbackElement.textContent = '✅ Suas respostas foram salvas! Agora pode avançar.';
+            feedbackElement.className = 'feedback correct';
+            feedbackElement.style.display = 'block';
+
+            // Marcar a atividade como completa (para habilitar o botão)
+            const activityContainer = this.closest('.trackable-activity');
+            if (activityContainer && !activityContainer.classList.contains('completed')) {
+                activityContainer.classList.add('completed');
+                checkStepCompletion(currentStep);
+            }
+        });
+
+        // Verificar se o formulário já foi preenchido (se houver dados salvos)
+        // (Adicione aqui a lógica para verificar se o formulário já foi preenchido
+        // e, nesse caso, marcar a atividade como completa inicialmente)
+        // Exemplo:
+        // if (localStorage.getItem('studentData')) {
+        //     const activityContainer = studentForm.closest('.interactive-exercise');
+        //     activityContainer.classList.add('completed');
+        //     checkStepCompletion(currentStep);
+        // }
+    }
+
+    // Verifica se a página foi carregada através de uma âncora (ex: #step-5)
+    const hash = window.location.hash;
+    if (hash) {
+        const stepFromHash = parseInt(hash.replace('#step-', ''));
+        if (!isNaN(stepFromHash) && stepFromHash > 0 && stepFromHash <= totalSteps) {
+            showStep(stepFromHash);
+        }
+
+    } else {
+        // Se não houver hash, verifique a conclusão da primeira etapa
+        checkStepCompletion(1);
+    }
 });
-
-// Configurar botões de navegação
-for (let i = 1; i < totalSteps; i++) {
-    const nextBtn = document.getElementById(`next-${i}`);
-    if (nextBtn) {
-        nextBtn.addEventListener('click', () => showStep(i + 1));
-    }
-}
-
-for (let i = 2; i <= totalSteps; i++) {
-    const prevBtn = document.getElementById(`prev-${i}`);
-    if (prevBtn) {
-        prevBtn.addEventListener('click', () => showStep(i - 1));
-    }
-}
 
 // Configurar quizzes
 document.querySelectorAll('.quiz-option').forEach(option => {
     option.addEventListener('click', function() {
         const parent = this.parentElement;
+        const quizContainer = this.closest('.quiz-container');
         const feedback = parent.nextElementSibling;
         
         // Remover seleções anteriores
@@ -160,6 +199,10 @@ document.querySelectorAll('.quiz-option').forEach(option => {
             this.classList.add('correct');
             feedback.textContent = '✅ Correto!';
             feedback.className = 'feedback correct';
+            if (quizContainer && !quizContainer.classList.contains('completed')) {
+                quizContainer.classList.add('completed');
+                checkStepCompletion(currentStep);
+            }
         } else {
             this.classList.add('incorrect');
             feedback.textContent = '❌ Tente novamente!';
@@ -192,6 +235,13 @@ function runInteractiveCode(codeId, outputId) {
     const code = document.getElementById(codeId).value;
     const output = document.getElementById(outputId);
     
+    // Marca a atividade como concluída ao executar
+    const playground = output.closest('.code-playground');
+    if (playground && !playground.classList.contains('completed')) {
+        playground.classList.add('completed');
+        checkStepCompletion(currentStep);
+    }
+
     // Extrai a pergunta do input()
     const questionMatch = code.match(/input\("([^"]+)"\)/);
     const question = questionMatch ? questionMatch[1] : "Digite um valor: ";
@@ -228,6 +278,13 @@ __builtins__.input = js_prompt
     pyodide.runPython(pythonSetupCode);
 
     try {
+        // Marca a atividade como concluída ao executar
+        const playground = output.closest('.code-playground');
+        if (playground && !playground.classList.contains('completed')) {
+            playground.classList.add('completed');
+            checkStepCompletion(currentStep);
+        }
+
         await pyodide.runPythonAsync(code);
         const stdout = pyodide.runPython("sys.stdout.getvalue()");
         output.textContent = stdout ? stdout.trim() : "Código executado sem saída.";
@@ -250,7 +307,6 @@ document.getElementById('run-rh360').addEventListener('click', async () => {
 
 document.getElementById('reveal-rh360-solution').addEventListener('click', function() {
     const codeArea = document.getElementById('rh360-code');
-    const feedback = document.getElementById('rh360-feedback');
     
     const solutionCode = `# Protótipo InovaTech - Módulo de Cadastro
 
@@ -280,22 +336,6 @@ else:
 print("\\nBem-vindo(a) à plataforma InovaTech!")`;
 
     codeArea.value = solutionCode;
-    feedback.style.display = 'block';
-});
-
-// Configurar botão de finalização
-document.getElementById('finish-btn').addEventListener('click', function() {
-    document.getElementById('completion-message').style.display = 'block';
-    this.style.display = 'none';
-
-    // Lançar confetes!
-    if (typeof confetti === 'function') {
-        confetti({
-            particleCount: 150,
-            spread: 90,
-            origin: { y: 0.6 }
-        });
-    }
 });
 
 // Lógica para salvar e carregar anotações da pesquisa no localStorage
@@ -317,6 +357,11 @@ if (saveResearchBtn && researchNotesTextarea && researchFeedback) {
         const notes = researchNotesTextarea.value;
         localStorage.setItem('pythonResearchNotes', notes);
 
+        const activityContainer = this.closest('.trackable-activity');
+        if (activityContainer && !activityContainer.classList.contains('completed')) {
+            activityContainer.classList.add('completed');
+            checkStepCompletion(currentStep);
+        }
         researchFeedback.textContent = '✅ Suas anotações foram salvas com sucesso no navegador!';
         researchFeedback.className = 'feedback correct';
         researchFeedback.style.display = 'block';
@@ -383,6 +428,12 @@ function setupDragDropExercise(containerId) {
         feedback.textContent = isCorrect ? '✅ Perfeito! O código está na ordem correta.' : '❌ Ops! A ordem dos blocos não está correta. Tente novamente.';
         feedback.className = isCorrect ? 'feedback correct' : 'feedback incorrect';
         feedback.style.display = 'block';
+
+        if (isCorrect) {
+            const activityContainer = container.closest('.trackable-activity');
+            activityContainer.classList.add('completed');
+            checkStepCompletion(currentStep);
+        }
     });
 
     resetBtn.addEventListener('click', () => {
@@ -407,8 +458,8 @@ document.querySelectorAll('.flip-card').forEach(card => {
 });
 
 // Lógica para o Modal de Empresas
-const companyModalOverlay = document.getElementById('company-modal-overlay');
-const modalCloseBtn = document.getElementById('modal-close-btn');
+const companyModalOverlay = document.getElementById('company-modal-overlay'); // Sem alterações aqui, pois o ID já é único
+const modalCloseBtn = document.querySelector('.company-modal-close-btn'); // Alterado para buscar pela nova classe
 const companyLogos = document.querySelectorAll('.company-logo');
 
 const modalCompanyName = document.getElementById('modal-company-name');
@@ -433,7 +484,7 @@ function closeModal() {
     companyModalOverlay.style.display = 'none';
 }
 
-modalCloseBtn.addEventListener('click', closeModal);
+if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
 companyModalOverlay.addEventListener('click', (e) => {
     if (e.target === companyModalOverlay) {
         closeModal();
@@ -535,6 +586,11 @@ function setupWordSearch() {
             feedbackElement.textContent = '🎉 Parabéns! Você encontrou todas as palavras!';
             feedbackElement.className = 'feedback correct';
             feedbackElement.style.display = 'block';
+
+            const activityContainer = gridElement.closest('.trackable-activity');
+            if(activityContainer) {
+                activityContainer.classList.add('completed');
+            }
         }
     });
 
@@ -575,6 +631,11 @@ function setupWordSearch() {
             feedbackElement.textContent = '🎉 Parabéns! Você encontrou todas as palavras!';
             feedbackElement.className = 'feedback correct';
             feedbackElement.style.display = 'block';
+            const activityContainer = gridElement.closest('.trackable-activity');
+            if(activityContainer) {
+                activityContainer.classList.add('completed');
+                checkStepCompletion(currentStep);
+            }
             revealBtn.disabled = true;
         }
     });
@@ -635,6 +696,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Adiciona listener para cada botão de verificação de código
     document.querySelectorAll('.check-code-btn').forEach((btn, index) => {
+
         btn.addEventListener('click', () => checkCodeChallenge(index + 1));
     });
 
@@ -648,11 +710,89 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const totalScore = correctQuizAnswers + correctCodeChallenges;
             const finalFeedback = document.getElementById('final-quiz-feedback');
-            finalFeedback.textContent = `Sua pontuação final é: ${totalScore}/10. (${correctQuizAnswers} de 5 em múltipla escolha e ${correctCodeChallenges} de 5 em desafios de código).`;
+            finalFeedback.textContent = `Sua pontuação final é: ${totalScore}/10.`;
             finalFeedback.className = 'feedback correct';
             finalFeedback.style.display = 'block';
+
+            // Se o quiz final for concluído, marca a atividade
+            const activityContainer = quizContainer.closest('.trackable-activity');
+            if (activityContainer) {
+                activityContainer.classList.add('completed');
+                checkStepCompletion(currentStep);
+            }
         });
     }
 
     setupWordSearch();
+
+    // Configurar botões "Desbloquear Próxima Etapa"
+    document.querySelectorAll('.btn-unlock-next').forEach(button => {
+        button.addEventListener('click', function() {
+            const step = parseInt(this.dataset.step);
+            // Envia uma mensagem específica para mostrar a recompensa na página do mapa
+            if (window.parent) {
+                window.parent.postMessage({ type: 'SHOW_REWARD', points: 10 }, '*');
+            }
+
+            // Lógica existente para salvar o progresso
+            saveAndNotifyProgress(step);
+            this.textContent = '✅ Desbloqueado!';
+            this.disabled = true; // Desabilita após o clique para evitar múltiplos envios
+        });
+    });
+
+    // --- Lógica para Geração de Certificado PDF ---
+    const generatePdfBtn = document.getElementById('generate-pdf-btn');
+    if (generatePdfBtn) {
+        generatePdfBtn.addEventListener('click', () => {
+            const savedData = localStorage.getItem('studentData');
+            let studentName = '';
+            if (savedData) {
+                const studentData = JSON.parse(savedData);
+                studentName = studentData.name || '';
+            }
+
+            if (!studentName.trim()) {
+                alert("Não foi possível encontrar seu nome. Por favor, volte para a Etapa 1 e preencha o formulário.");
+                return;
+            }
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({
+                orientation: 'landscape',
+                unit: 'mm',
+                format: 'a4'
+            });
+
+            // Design do Certificado
+            doc.setFillColor(248, 249, 250); // Fundo cinza claro
+            doc.rect(0, 0, 297, 210, 'F');
+
+            doc.setDrawColor(55, 118, 171); // Azul Python
+            doc.setLineWidth(10);
+            doc.rect(5, 5, 287, 200);
+
+            doc.setTextColor(55, 118, 171); // Azul Python
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(40);
+            doc.text('CERTIFICADO DE CONCLUSÃO', 148.5, 50, { align: 'center' });
+
+            doc.setTextColor(33, 37, 41); // Texto escuro
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(18);
+            doc.text('Este certificado é concedido a', 148.5, 80, { align: 'center' });
+
+            doc.setTextColor(55, 118, 171);
+            doc.setFont('helvetica', 'bolditalic');
+            doc.setFontSize(32);
+            doc.text(studentName, 148.5, 105, { align: 'center' });
+
+            doc.setTextColor(33, 37, 41);
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(16);
+            doc.text('Por ter concluído com sucesso a aula de "Introdução ao Python para Backend".', 148.5, 130, { align: 'center' });
+
+            doc.save(`Certificado-Python-${studentName.replace(/ /g, '_')}.pdf`);
+        });
+    }
 });

@@ -1,0 +1,348 @@
+:root {
+    --primary: #2c3e50;
+    --secondary: #1abc9c;
+    --completed: #27ae60;
+    --locked: #7f8c8d;
+    --light: #ecf0f1;
+    --dark: #34495e;
+    --path-color: #ffd700; /* Amarelo-ouro para a cobra */
+    --stop-bg: #34495e;
+    --stop-border: #1abc9c;
+    --stop-hover-bg: #4a6a8a;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: #4a6a8a; /* Cor de fundo caso o padrão não carregue */
+    color: var(--light);
+    background-image: url(#grass-pattern);
+    overflow-y: auto; /* Permite scroll vertical */
+    overflow-x: hidden; /* Evita scroll horizontal */
+}
+
+.map-header {
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(0,0,0,0.2);
+}
+
+.map-header h1 {
+    color: var(--secondary);
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.map-header p {
+    font-size: 1.1rem;
+    color: #bdc3c7;
+}
+
+.gamification-stats {
+    margin-top: 15px;
+    background-color: rgba(0,0,0,0.3);
+    padding: 10px 20px;
+    border-radius: 20px;
+    display: inline-block;
+    border: 1px solid var(--secondary);
+    transition: transform 0.3s ease;
+}
+
+#player-score {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--path-color);
+}
+
+.map-container {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    margin: 40px auto;
+    height: 2400px; /* Altura para acomodar o caminho */
+}
+
+.map-path-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Alterado de auto para 100% */
+    pointer-events: none; /* Permite clicar através do SVG */
+}
+
+.snake-path-outline {
+    fill: none;
+    stroke: var(--info); /* Azul claro para o contorno */
+    stroke-width: 18; /* Mais grosso para ser o contorno */
+    stroke-linecap: round;
+    stroke-dasharray: 30 20;
+    animation: slither 40s linear infinite;
+    filter: drop-shadow(0 0 3px var(--info)); /* Adiciona um brilho sutil */
+}
+
+.snake-path-fill {
+    fill: none;
+    stroke: url(#snakeGradient);
+    stroke-width: 12; /* Mais fino para que o contorno apareça */
+    stroke-linecap: round;
+    stroke-dasharray: 30 20;
+    animation: slither 40s linear infinite;
+}
+
+@keyframes slither {
+    from {
+        stroke-dashoffset: 0;
+    }
+    to {
+        stroke-dashoffset: -1000; /* Um valor grande para animar por um bom tempo */
+    }
+}
+
+.map-stops {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2; /* Garante que as paradas fiquem acima do SVG */
+}
+
+.map-stop {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    text-decoration: none;
+    color: var(--light);
+    animation: pop-in 0.5s ease-out forwards;
+    opacity: 0; /* Começa invisível para a animação */
+}
+
+@keyframes pop-in {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.map-stop:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.map-stop.locked {
+    cursor: not-allowed;
+    filter: grayscale(80%);
+}
+
+.map-stop.locked:hover {
+    transform: translate(-50%, -50%); /* Remove o efeito de zoom */
+}
+
+.next-to-unlock .stop-icon {
+    animation: glow 1.5s infinite ease-in-out;
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(255, 212, 59, 0.5), 0 4px 10px rgba(0,0,0,0.3);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 25px rgba(255, 212, 59, 1), 0 4px 10px rgba(0,0,0,0.3);
+        transform: scale(1.05);
+    }
+}
+
+
+.stop-icon {
+    width: 60px;
+    height: 60px;
+    background-color: var(--stop-bg);
+    border: 3px solid var(--stop-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: background-color 0.3s;
+}
+
+.map-stop.locked .stop-icon {
+    background-color: var(--locked);
+    border-color: #95a5a6;
+}
+
+.map-stop:not(.locked) .stop-icon:has(+ .completed) {
+    border-color: var(--completed);
+    background-color: var(--completed);
+}
+
+.map-stop:hover .stop-icon {
+    background-color: var(--stop-hover-bg);
+}
+
+.stop-label {
+    background-color: rgba(44, 62, 80, 0.8);
+    padding: 8px 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    white-space: nowrap;
+}
+
+.stop-step {
+    font-size: 0.8rem;
+    color: var(--secondary);
+    font-weight: bold;
+}
+
+.stop-title {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* --- Estilos do Modal --- */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal-content {
+    background-color: var(--dark);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    width: 100%;
+    max-width: 1200px;
+    height: 95vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 1.5rem;
+    color: var(--light);
+    background: var(--primary);
+    border: 2px solid var(--light);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    z-index: 1200; /* Aumentado para garantir que fique acima de tudo */
+}
+
+.iframe-container {
+    flex-grow: 1;
+    overflow: hidden;
+    border-radius: 0 0 10px 10px;
+}
+
+#lesson-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Ajustes para telas menores */
+@media (max-width: 768px) {
+    .map-header h1 {
+        font-size: 1.8rem;
+    }
+    .stop-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+    .stop-label {
+        display: none; /* Esconde o texto em telas muito pequenas para não poluir */
+    }
+}
+
+/* Ajuste para o SVG não cobrir as paradas */
+.map-stops {
+    pointer-events: auto; /* Garante que as paradas sejam clicáveis */
+}
+
+/* Ajuste no preserveAspectRatio do SVG para esticar verticalmente */
+svg.map-path-svg {
+    preserveAspectRatio: none; /* Revertido para esticar e preencher */
+}
+
+/* --- Estilos da Notificação (Toast) --- */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translate(-50%, 100px); /* Começa fora da tela */
+    background: linear-gradient(135deg, var(--completed), var(--secondary));
+    color: var(--dark);
+    padding: 15px 25px;
+    border-radius: 50px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    z-index: 2000;
+    font-size: 1.1rem;
+    font-weight: bold;
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out, visibility 0.5s;
+}
+
+.toast.show {
+    transform: translate(-50%, 0);
+    opacity: 1;
+    visibility: visible;
+}
+
+/* --- Animação de Pontos Ganhos --- */
+.points-animation {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, var(--path-color), #ffb700);
+    color: var(--primary);
+    padding: 20px 40px;
+    border-radius: 100px;
+    font-size: 2.5rem;
+    font-weight: 700;
+    z-index: 3000;
+    opacity: 0;
+    pointer-events: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    transition: all 2s cubic-bezier(0.19, 1, 0.22, 1);
+    transform-origin: center;
+}
+
+.points-animation.show {
+    opacity: 1;
+    /* A animação move o elemento para cima e para a direita (em direção ao placar) e o diminui */
+    transform: translate(150%, -400%) scale(0.1);
+}
