@@ -450,6 +450,89 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// --- Lógica para Associação de Colunas (Matching Exercise) ---
+function setupMatchingExercise(containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    const conceptsColumn = container.querySelector('#concepts-column');
+    const definitionsColumn = container.querySelector('#definitions-column');
+    const feedback = container.querySelector('#matching-feedback');
+    const resetBtn = container.querySelector('#reset-matching-btn');
+
+    let draggedItem = null;
+
+    conceptsColumn.addEventListener('dragstart', e => {
+        if (e.target.classList.contains('matching-item')) {
+            draggedItem = e.target;
+            setTimeout(() => e.target.classList.add('dragging'), 0);
+        }
+    });
+
+    document.addEventListener('dragend', e => {
+        if (draggedItem) {
+            draggedItem.classList.remove('dragging');
+            draggedItem = null;
+        }
+    });
+
+    definitionsColumn.addEventListener('dragover', e => {
+        e.preventDefault();
+        const dropzone = e.target.closest('.matching-dropzone');
+        if (dropzone && !dropzone.classList.contains('correct')) {
+            dropzone.classList.add('over');
+        }
+    });
+
+    definitionsColumn.addEventListener('dragleave', e => {
+        const dropzone = e.target.closest('.matching-dropzone');
+        if (dropzone) {
+            dropzone.classList.remove('over');
+        }
+    });
+
+    definitionsColumn.addEventListener('drop', e => {
+        e.preventDefault();
+        const dropzone = e.target.closest('.matching-dropzone');
+        if (dropzone && draggedItem && !dropzone.classList.contains('correct')) {
+            dropzone.classList.remove('over');
+            const isCorrect = draggedItem.dataset.matchId === dropzone.dataset.matchId;
+
+            if (isCorrect) {
+                dropzone.innerHTML = ''; // Limpa o texto placeholder
+                dropzone.appendChild(draggedItem);
+                draggedItem.draggable = false;
+                draggedItem.classList.remove('dragging');
+                draggedItem.classList.add('matched');
+                dropzone.classList.add('correct');
+                draggedItem = null;
+
+                // Verifica se todas as zonas foram preenchidas
+                const allCorrect = definitionsColumn.querySelectorAll('.matching-dropzone.correct').length === conceptsColumn.children.length;
+                if (allCorrect) {
+                    feedback.textContent = '✅ Excelente! Todas as associações estão corretas.';
+                    feedback.className = 'feedback correct';
+                    feedback.style.display = 'block';
+                    container.classList.add('completed');
+                    checkStepCompletion(currentStep);
+                }
+            } else {
+                dropzone.classList.add('incorrect');
+                setTimeout(() => dropzone.classList.remove('incorrect'), 500);
+            }
+        }
+    });
+
+    resetBtn.addEventListener('click', () => {
+        // A maneira mais fácil de resetar é recarregar a etapa, mas isso pode ser complexo.
+        // Uma solução mais simples seria mover os elementos de volta.
+        // Por enquanto, vamos apenas sugerir recarregar a página ou refazer a etapa.
+        // Para uma implementação completa, seria necessário clonar os nós no início.
+        // Por simplicidade, vamos recarregar a página da aula.
+        window.location.reload();
+    });
+}
+
 // Lógica para os Flip Cards (Cards de Estudo)
 document.querySelectorAll('.flip-card').forEach(card => {
     card.addEventListener('click', function() {
@@ -646,6 +729,7 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let i = 1; i <= 5; i++) { setupDragDropExercise(`dd-exercise-${i}`); }
 
     // Função para verificar um desafio de código individual
+    setupMatchingExercise('matching-exercise-1');
     function checkCodeChallenge(challengeNum) {
         const challengeContainer = document.getElementById(`code-challenge-${challengeNum}`);
         if (!challengeContainer) return false;

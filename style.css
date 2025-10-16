@@ -619,6 +619,82 @@ h2 {
     background-color: #4a6a8a;
 }
 
+/* Estilos para a atividade de Associação de Colunas */
+.matching-container {
+    display: flex;
+    gap: 20px;
+    margin-top: 15px;
+    min-height: 250px;
+}
+
+.matching-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    background-color: var(--code-header-bg);
+    border-radius: 8px;
+}
+
+.matching-item {
+    background-color: var(--primary);
+    color: #f8f8f2;
+    padding: 12px;
+    border-radius: 5px;
+    cursor: grab;
+    text-align: center;
+    font-weight: bold;
+    transition: background-color 0.2s, opacity 0.2s;
+}
+
+.matching-item.dragging {
+    opacity: 0.5;
+}
+
+.matching-item.matched {
+    cursor: default;
+    background-color: var(--success);
+}
+
+.matching-dropzone {
+    background-color: var(--content-bg);
+    border: 2px dashed var(--border-color);
+    border-radius: 5px;
+    padding: 12px;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--text-muted);
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.matching-dropzone.over {
+    background-color: var(--highlight-bg);
+    border-color: var(--primary);
+}
+
+.matching-dropzone.correct {
+    border-style: solid;
+    border-color: var(--success);
+    background-color: var(--highlight-bg);
+    color: var(--dark);
+}
+
+.matching-dropzone.incorrect {
+    border-style: solid;
+    border-color: var(--danger);
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
 /* Estilos para os Flip Cards (Cards de Estudo) */
 .flip-card-grid {
     display: grid;

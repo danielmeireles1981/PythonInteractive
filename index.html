@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trilha de Aprendizagem Python</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="map.css">
 </head>
+
 <body>
 
     <!-- SVG para definir o padrão de grama do fundo -->
@@ -19,10 +23,10 @@
                 <!-- Fundo mais claro para o padrão -->
                 <rect width="100" height="100" fill="#2c3e50" />
                 <!-- Lâminas de grama com cores e posições variadas -->
-                <path d="M 0 100 C 10 80, 15 40, 20 0" stroke="#2a9d8f" stroke-width="1.5" fill="none" opacity="0.3"/>
-                <path d="M 25 100 C 35 80, 40 40, 45 0" stroke="#34495e" stroke-width="2" fill="none" opacity="0.4"/>
-                <path d="M 50 100 C 60 80, 65 40, 70 0" stroke="#2a9d8f" stroke-width="1" fill="none" opacity="0.2"/>
-                <path d="M 75 100 C 85 80, 90 40, 95 0" stroke="#34495e" stroke-width="1.5" fill="none" opacity="0.3"/>
+                <path d="M 0 100 C 10 80, 15 40, 20 0" stroke="#2a9d8f" stroke-width="1.5" fill="none" opacity="0.3" />
+                <path d="M 25 100 C 35 80, 40 40, 45 0" stroke="#34495e" stroke-width="2" fill="none" opacity="0.4" />
+                <path d="M 50 100 C 60 80, 65 40, 70 0" stroke="#2a9d8f" stroke-width="1" fill="none" opacity="0.2" />
+                <path d="M 75 100 C 85 80, 90 40, 95 0" stroke="#34495e" stroke-width="1.5" fill="none" opacity="0.3" />
             </pattern>
         </defs>
     </svg>
@@ -32,6 +36,7 @@
         <p>Siga o caminho da serpente e desbloqueie as etapas para se tornar um mestre em Python!</p>
         <div class="gamification-stats">
             <span id="player-score">🏆 Pontos: 0</span>
+            <button id="reset-progress-btn" title="Resetar todo o progresso e pontos">🔄 Resetar</button>
         </div>
     </header>
 
@@ -85,52 +90,84 @@
         <div class="map-stops">
             <!-- As paradas do mapa agora estão diretamente no HTML -->
             <div class="map-stop" data-step="1" style="left: 50%; top: 50px;">
-                <div class="stop-icon"></div><div class="stop-label"><span class="stop-step">Etapa 1</span><span class="stop-title">🤔 Quem é você?</span></div>
+                <div class="stop-icon"></div>
+                <div class="stop-label"><span class="stop-step">Etapa 1</span><span class="stop-title">🤔 Quem é
+                        você?</span></div>
             </div>
             <div class="map-stop" data-step="2" style="left: 12.5%; top: 200px;">
-                <div class="stop-icon"></div><div class="stop-label"><span class="stop-step">Etapa 2</span><span class="stop-title">🎯 Situação-Problema</span></div>
+                <div class="stop-icon"></div>
+                <div class="stop-label"><span class="stop-step">Etapa 2</span><span class="stop-title">🎯
+                        Situação-Problema</span></div>
             </div>
             <div class="map-stop" data-step="3" style="left: 50%; top: 300px;">
-                <div class="stop-icon"></div><div class="stop-label"><span class="stop-step">Etapa 3</span><span class="stop-title">⚙️ O que é Backend?</span></div>
+                <div class="stop-icon"></div>
+                <div class="stop-label"><span class="stop-step">Etapa 3</span><span class="stop-title">⚙️ O que é
+                        Backend?</span></div>
             </div>
             <div class="map-stop" data-step="4" style="left: 87.5%; top: 400px;">
-                <div class="stop-icon"></div><div class="stop-label"><span class="stop-step">Etapa 4</span><span class="stop-title">📚 Linguagens</span></div>
+                <div class="stop-icon"></div>
+                <div class="stop-label"><span class="stop-step">Etapa 4</span><span class="stop-title">📚
+                        Linguagens</span></div>
             </div>
             <div class="map-stop" data-step="5" style="left: 50%; top: 500px;">
-                <div class="stop-icon"></div><div class="stop-label"><span class="stop-step">Etapa 5</span><span class="stop-title">🐍 Por que Python?</span></div>
+                <div class="stop-icon"></div>
+                <div class="stop-label"><span class="stop-step">Etapa 5</span><span class="stop-title">🐍 Por que
+                        Python?</span></div>
             </div>
             <div class="map-stop" data-step="6" style="left: 12.5%; top: 600px;">
-                <div class="stop-icon"></div><div class="stop-label"><span class="stop-step">Etapa 6</span><span class="stop-title">📦 Variáveis</span></div>
+                <div class="stop-icon"></div>
+                <div class="stop-label"><span class="stop-step">Etapa 6</span><span class="stop-title">📦
+                        Variáveis</span></div>
             </div>
             <div class="map-stop" data-step="7" style="left: 50%; top: 700px;">
-                <div class="stop-icon"></div><div class="stop-label"><span class="stop-step">Etapa 7</span><span class="stop-title">▶️ Primeiros Passos</span></div>
+                <div class="stop-icon"></div>
+                <div class="stop-label"><span class="stop-step">Etapa 7</span><span class="stop-title">▶️ Primeiros
+                        Passos</span></div>
             </div>
             <div class="map-stop" data-step="8" style="left: 87.5%; top: 800px;">
-                <div class="stop-icon"></div><div class="stop-label"><span class="stop-step">Etapa 8</span><span class="stop-title">🚦 Controlando o Fluxo</span></div>
+                <div class="stop-icon"></div>
+                <div class="stop-label"><span class="stop-step">Etapa 8</span><span class="stop-title">🚦 Controlando o
+                        Fluxo</span></div>
             </div>
             <div class="map-stop" data-step="9" style="left: 50%; top: 900px;">
-                <div class="stop-icon"></div><div class="stop-label"><span class="stop-step">Etapa 9</span><span class="stop-title">🧰 Estruturas de Dados</span></div>
+                <div class="stop-icon"></div>
+                <div class="stop-label"><span class="stop-step">Etapa 9</span><span class="stop-title">🧰 Estruturas de
+                        Dados</span></div>
             </div>
             <div class="map-stop" data-step="10" style="left: 12.5%; top: 1000px;">
-                <div class="stop-icon"></div><div class="stop-label"><span class="stop-step">Etapa 10</span><span class="stop-title">✨ Boas Práticas</span></div>
+                <div class="stop-icon"></div>
+                <div class="stop-label"><span class="stop-step">Etapa 10</span><span class="stop-title">✨ Boas
+                        Práticas</span></div>
             </div>
             <div class="map-stop" data-step="11" style="left: 50%; top: 1100px;">
-                <div class="stop-icon"></div><div class="stop-label"><span class="stop-step">Etapa 11</span><span class="stop-title">🔍 Caça-Palavras</span></div>
+                <div class="stop-icon"></div>
+                <div class="stop-label"><span class="stop-step">Etapa 11</span><span class="stop-title">🔍
+                        Caça-Palavras</span></div>
             </div>
             <div class="map-stop" data-step="12" style="left: 87.5%; top: 1200px;">
-                <div class="stop-icon"></div><div class="stop-label"><span class="stop-step">Etapa 12</span><span class="stop-title">🧩 Construtor de Código</span></div>
+                <div class="stop-icon"></div>
+                <div class="stop-label"><span class="stop-step">Etapa 12</span><span class="stop-title">🧩 Construtor de
+                        Código</span></div>
             </div>
             <div class="map-stop" data-step="13" style="left: 50%; top: 1300px;">
-                <div class="stop-icon"></div><div class="stop-label"><span class="stop-step">Etapa 13</span><span class="stop-title">📝 Avaliação</span></div>
+                <div class="stop-icon"></div>
+                <div class="stop-label"><span class="stop-step">Etapa 13</span><span class="stop-title">📝
+                        Avaliação</span></div>
             </div>
             <div class="map-stop" data-step="14" style="left: 12.5%; top: 1400px;">
-                <div class="stop-icon"></div><div class="stop-label"><span class="stop-step">Etapa 14</span><span class="stop-title">🎮 Jogos Interativos</span></div>
+                <div class="stop-icon"></div>
+                <div class="stop-label"><span class="stop-step">Etapa 14</span><span class="stop-title">🎮 Jogos
+                        Interativos</span></div>
             </div>
             <div class="map-stop" data-step="15" style="left: 50%; top: 1500px;">
-                <div class="stop-icon"></div><div class="stop-label"><span class="stop-step">Etapa 15</span><span class="stop-title">🏆 Desafio Final</span></div>
+                <div class="stop-icon"></div>
+                <div class="stop-label"><span class="stop-step">Etapa 15</span><span class="stop-title">🏆 Desafio
+                        Final</span></div>
             </div>
             <div class="map-stop" data-step="16" style="left: 87.5%; top: 1600px;">
-                <div class="stop-icon"></div><div class="stop-label"><span class="stop-step">Etapa 16</span><span class="stop-title">📜 Certificado</span></div>
+                <div class="stop-icon"></div>
+                <div class="stop-label"><span class="stop-step">Etapa 16</span><span class="stop-title">📜
+                        Certificado</span></div>
             </div>
         </div>
 
@@ -203,7 +240,7 @@
 
                     // Limpa classes antigas e adiciona as novas
                     stopElement.classList.remove('locked', 'next-to-unlock');
-                    
+
                     if (isLocked) {
                         stopElement.classList.add('locked');
                     } else if (data.step === unlockedUntil) {
@@ -342,7 +379,7 @@
             function scrollToStep(stepNumber) {
                 const targetStop = document.querySelector(`.map-stop[data-step="${stepNumber}"]`);
                 if (targetStop) {
-                    targetStop.scrollIntoView({ behavior: 'smooth', block: 'center' }); 
+                    targetStop.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
             }
 
@@ -350,32 +387,57 @@
             // localStorage.removeItem('unlockedStep');
             // localStorage.removeItem('playerScore');
 
+            const resetBtn = document.getElementById('reset-progress-btn');
+            resetBtn.addEventListener('click', () => {
+                if (confirm('Você tem certeza que deseja resetar todo o seu progresso e pontos? Esta ação não pode ser desfeita.')) {
+                    // Limpa os dados do mapa
+                    localStorage.removeItem('unlockedStep');
+                    localStorage.removeItem('playerScore');
+
+                    // Limpa dados relacionados às aulas
+                    localStorage.removeItem('studentData');
+                    localStorage.removeItem('pythonResearchNotes');
+
+                    // Recarrega a página para aplicar as mudanças
+                    window.location.reload();
+                }
+            });
+
             updateScoreDisplay(); // Atualiza a pontuação na carga inicial
             renderMap(); // Renderiza o mapa na carga inicial
 
         });
     </script>
 
+    <!-- Elementos decorativos SVG -->
+    <svg class="python-decoration python-decoration-1" viewBox="0 0 120 60">
+        <path d="M10,30 Q30,10 50,30 Q70,50 90,30" fill="none" stroke="var(--python-yellow)" stroke-width="3" />
+        <circle cx="95" cy="30" r="5" fill="var(--python-yellow)" />
+    </svg>
+
+    <svg class="python-decoration python-decoration-2" viewBox="0 0 120 60">
+        <path d="M30,10 Q10,30 30,50 Q50,70 70,50 Q90,30 70,10" fill="none" stroke="var(--python-blue)"
+            stroke-width="3" />
+        <circle cx="25" cy="10" r="5" fill="var(--python-blue)" />
+    </svg>
+
+    <svg class="python-decoration python-decoration-3" viewBox="0 0 120 60">
+        <path d="M20,40 Q40,20 60,40 Q80,60 100,40" fill="none" stroke="var(--python-green)" stroke-width="3" />
+        <circle cx="15" cy="40" r="5" fill="var(--python-green)" />
+    </svg>
+
+    <svg class="python-decoration python-decoration-4" viewBox="0 0 120 60">
+        <path d="M40,20 Q20,40 40,60 Q60,80 80,60 Q100,40 80,20" fill="none" stroke="var(--python-yellow)"
+            stroke-width="3" />
+        <circle cx="85" cy="20" r="5" fill="var(--python-yellow)" />
+    </svg>
+
+    <!-- Símbolos de código flutuantes -->
+    <div class="code-symbol code-symbol-1">def</div>
+    <div class="code-symbol code-symbol-2">class</div>
+    <div class="code-symbol code-symbol-3">import</div>
+    <div class="code-symbol code-symbol-4">print()</div>
+    <div class="code-symbol code-symbol-5">for in</div>
 </body>
-</html>
-                    }, { once: true });
-                }
-            });
 
-            function scrollToStep(stepNumber) {
-                const targetStop = document.querySelector(`.map-stop[data-step="${stepNumber}"]`);
-                if (targetStop) {
-                    targetStop.scrollIntoView({ behavior: 'smooth', block: 'center' }); 
-                }
-            }
-
-            // Para limpar o progresso e recomeçar do zero, descomente a linha abaixo:
-            // localStorage.removeItem('unlockedStep');
-
-            renderMap(); // Renderiza o mapa na carga inicial
-
-        });
-    </script>
-
-</body>
 </html>

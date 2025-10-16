@@ -147,77 +147,45 @@
                 </div>
 
                 <!-- Etapa 3: Linguagens -->
-                <div class="step" id="step-3" data-total-activities="4">
+                <div class="step" id="step-3" data-total-activities="0">
                     <span class="bloom-level">Nível 1: Compreensão</span>
                     <h2>O que é Backend?</h2>
                     <p>O <strong>backend</strong> é a parte "invisível" de um sistema, o motor que trabalha nos
                         bastidores. Ele é responsável por fazer a ponte entre a interface que você vê (front-end) e o
                         banco de dados, garantindo que tudo funcione corretamente.</p>
-
+                
                     <img src="backend.png" alt="Infográfico explicando a diferença entre Frontend e Backend"
                         class="content-image">
-
-                    <button class="btn btn-secondary btn-reveal" data-target="quiz-1">🧠 Teste seu conhecimento</button>
-                    <div class="interactive-exercise" id="quiz-1" style="display: none;">
-                        <div class="quiz-container trackable-activity">
-                            <div class="quiz-question">Quais são as principais responsabilidades do backend?</div>
-                            <div class="quiz-options">
-                                <div class="quiz-option" data-correct="false">Apenas criar interfaces bonitas</div>
-                                <div class="quiz-option" data-correct="true">Gerenciar servidores, conectar com bancos
-                                    de dados e processar informações</div>
-                                <div class="quiz-option" data-correct="false">Apenas armazenar dados no computador do
-                                    usuário</div>
-                                <div class="quiz-option" data-correct="false">Criar animações e efeitos visuais</div>
+                
+                    <!-- Cards de Curiosidades sobre Backend -->
+                    <h3 style="margin-top: 25px; text-align: center;">💡 Curiosidades sobre o Backend</h3>
+                    <div class="flip-card-grid">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">Onde o Backend "mora"?</div>
+                                <div class="flip-card-back">Ele roda em computadores potentes chamados servidores, que podem estar em qualquer lugar do mundo, processando solicitações 24/7.</div>
                             </div>
-                            <div class="feedback"></div>
                         </div>
-
-                        <div class="quiz-container trackable-activity">
-                            <div class="quiz-question">Se você faz login em um site, qual parte do sistema verifica seu
-                                usuário e senha?</div>
-                            <div class="quiz-options">
-                                <div class="quiz-option" data-correct="true">Backend</div>
-                                <div class="quiz-option" data-correct="false">Frontend</div>
-                                <div class="quiz-option" data-correct="false">O navegador de internet</div>
-                                <div class="quiz-option" data-correct="false">O modem de internet</div>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">O que é uma API?</div>
+                                <div class="flip-card-back">É como um "garçom" do backend. O frontend (cliente) faz um pedido (requisição) e a API entrega os dados corretos, sem que o cliente precise entrar na "cozinha" (banco de dados).</div>
                             </div>
-                            <div class="feedback"></div>
                         </div>
-
-                        <div class="quiz-container trackable-activity">
-                            <div class="quiz-question">Onde os dados de um aplicativo (como posts de uma rede social)
-                                são permanentemente armazenados?</div>
-                            <div class="quiz-options">
-                                <div class="quiz-option" data-correct="false">No Frontend, dentro do HTML</div>
-                                <div class="quiz-option" data-correct="true">Em um Banco de Dados, gerenciado pelo
-                                    Backend</div>
-                                <div class="quiz-option" data-correct="false">No cache do navegador</div>
-                                <div class="quiz-option" data-correct="false">No arquivo CSS</div>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">Backend e Segurança</div>
+                                <div class="flip-card-back">A segurança é crucial no backend. É ele quem valida senhas, protege dados sensíveis e previne ataques, atuando como o "segurança" da aplicação.</div>
                             </div>
-                            <div class="feedback"></div>
-                        </div>
-
-                        <div class="quiz-container trackable-activity">
-                            <div class="quiz-question">Qual das seguintes tarefas NÃO é uma responsabilidade do backend?
-                            </div>
-                            <div class="quiz-options">
-                                <div class="quiz-option" data-correct="false">Salvar um novo usuário no banco de dados
-                                </div>
-                                <div class="quiz-option" data-correct="false">Enviar um e-mail de confirmação de compra
-                                </div>
-                                <div class="quiz-option" data-correct="true">Mudar a cor de um botão quando o mouse
-                                    passa por cima</div>
-                                <div class="quiz-option" data-correct="false">Processar um pagamento com cartão de
-                                    crédito</div>
-                            </div>
-                            <div class="feedback"></div>
                         </div>
                     </div>
+                    <p class="text-center" style="color: #6c757d; font-style: italic;">Clique nos cards para virar!</p>
+                
                     <div class="nav-buttons">
-                        <button class="btn btn-primary btn-unlock-next" data-step="3" disabled>Desbloquear Próxima Etapa</button>
+                        <button class="btn btn-primary btn-unlock-next" data-step="3">Desbloquear Próxima Etapa</button>
                     </div>
                 </div>
-                <div class="step" id="step-4" data-total-activities="5">
+                <div class="step" id="step-4" data-total-activities="1">
                     <span class="bloom-level">Nível 2: Conhecimento</span>
                     <h2>Linguagens de Programação</h2>
 
@@ -249,76 +217,28 @@
                         alt="Ilustração de um mago construindo estruturas com o poder do Python, representando a linguagem como interpretada e orientada a objetos"
                         class="content-image">
 
-                    <button class="btn btn-secondary btn-reveal" data-target="quiz-2">🧠 Teste seu conhecimento</button>
-                    <div class="interactive-exercise" id="quiz-2" style="display: none;">
-                        <h3 style="margin-top: 0;">Tipos de Linguagens</h3>
-
-                        <div class="quiz-container trackable-activity">
-                            <div class="quiz-question">Qual destas é uma característica de linguagens interpretadas como
-                                Python?</div>
-                            <div class="quiz-options">
-                                <div class="quiz-option" data-correct="false">Precisam ser compiladas antes da execução
-                                </div>
-                                <div class="quiz-option" data-correct="true">São executadas linha por linha em tempo
-                                    real</div>
-                                <div class="quiz-option" data-correct="false">Só funcionam em sistemas Windows</div>
-                                <div class="quiz-option" data-correct="false">São mais lentas que todas as linguagens
-                                    compiladas</div>
+                    <div class="interactive-exercise trackable-activity" id="matching-exercise-1">
+                        <h3>🧠 Associe os Conceitos</h3>
+                        <p>Arraste o conceito da coluna da esquerda e solte sobre a definição correta na coluna da direita.</p>
+                        <div class="matching-container">
+                            <div class="matching-column" id="concepts-column">
+                                <div class="matching-item" draggable="true" data-match-id="1">Linguagem Interpretada</div>
+                                <div class="matching-item" draggable="true" data-match-id="2">Linguagem Compilada</div>
+                                <div class="matching-item" draggable="true" data-match-id="3">Orientação a Objetos</div>
+                                <div class="matching-item" draggable="true" data-match-id="4">Exemplo de Compilada</div>
+                                <div class="matching-item" draggable="true" data-match-id="5">Exemplo de Interpretada</div>
                             </div>
-                            <div class="feedback"></div>
+                            <div class="matching-column" id="definitions-column">
+                                <div class="matching-dropzone" data-match-id="2">O código é traduzido inteiramente para a linguagem da máquina antes da execução.</div>
+                                <div class="matching-dropzone" data-match-id="5">Python, JavaScript</div>
+                                <div class="matching-dropzone" data-match-id="3">Estilo que organiza o código em "objetos" com dados (atributos) e comportamentos (métodos).</div>
+                                <div class="matching-dropzone" data-match-id="1">O código é lido e executado linha por linha por um "interpretador" durante a execução.</div>
+                                <div class="matching-dropzone" data-match-id="4">C++, Java</div>
+                            </div>
                         </div>
-
-                        <div class="quiz-container trackable-activity">
-                            <div class="quiz-question">Qual conceito é fundamental na Programação Orientada a Objetos?
-                            </div>
-                            <div class="quiz-options">
-                                <div class="quiz-option" data-correct="false">Execução sequencial de instruções</div>
-                                <div class="quiz-option" data-correct="false">Uso exclusivo de funções matemáticas</div>
-                                <div class="quiz-option" data-correct="true">Organização do código em classes e objetos
-                                </div>
-                                <div class="quiz-option" data-correct="false">Compilação para código de máquina</div>
-                            </div>
-                            <div class="feedback"></div>
-                        </div>
-
-                        <div class="quiz-container trackable-activity">
-                            <div class="quiz-question">Qual a principal diferença entre uma linguagem compilada e uma
-                                interpretada?</div>
-                            <div class="quiz-options">
-                                <div class="quiz-option" data-correct="true">Compilada traduz o código todo antes de
-                                    executar; Interpretada traduz linha por linha durante a execução.</div>
-                                <div class="quiz-option" data-correct="false">Linguagens interpretadas são sempre mais
-                                    rápidas.</div>
-                                <div class="quiz-option" data-correct="false">Apenas linguagens compiladas podem ser
-                                    usadas para criar jogos.</div>
-                                <div class="quiz-option" data-correct="false">Não há diferença, os termos são sinônimos.
-                                </div>
-                            </div>
-                            <div class="feedback"></div>
-                        </div>
-
-                        <div class="quiz-container trackable-activity">
-                            <div class="quiz-question">Qual das seguintes linguagens é um exemplo de linguagem
-                                primariamente compilada?</div>
-                            <div class="quiz-options">
-                                <div class="quiz-option" data-correct="false">Python</div>
-                                <div class="quiz-option" data-correct="false">JavaScript</div>
-                                <div class="quiz-option" data-correct="true">C++</div>
-                                <div class="quiz-option" data-correct="false">PHP</div>
-                            </div>
-                            <div class="feedback"></div>
-                        </div>
-
-                        <div class="quiz-container trackable-activity">
-                            <div class="quiz-question">A "Programação Orientada a Objetos" é um(a)...</div>
-                            <div class="quiz-options">
-                                <div class="quiz-option" data-correct="false">Linguagem de programação específica.</div>
-                                <div class="quiz-option" data-correct="true">Paradigma de programação, ou seja, um
-                                    estilo de escrever código.</div>
-                                <div class="quiz-option" data-correct="false">Tipo de compilador.</div>
-                                <div class="quiz-option" data-correct="false">Sistema operacional.</div>
-                            </div>
-                            <div class="feedback"></div>
+                        <div class="feedback" id="matching-feedback"></div>
+                        <div class="nav-buttons" style="justify-content: center; margin-top: 15px;">
+                            <button class="btn btn-secondary" id="reset-matching-btn">Resetar</button>
                         </div>
                     </div>
 
@@ -328,7 +248,7 @@
                 </div>
 
                 <!-- Etapa 4: Python -->
-                <div class="step" id="step-5" data-total-activities="4">
+                <div class="step" id="step-5" data-total-activities="1">
                     <span class="bloom-level">Nível 3: Aplicação</span>
                     <h2>Por que escolher Python?</h2>
 
@@ -391,86 +311,30 @@
                         para saber onde é usado! 👍</p>
                     <br>
 
-                    <button class="btn btn-secondary btn-reveal" data-target="quiz-3">🧠 Teste seu conhecimento</button>
-                    <div class="interactive-exercise" id="quiz-3" style="display: none;">
-                        <h3 style="margin-top: 0;">Vantagens do Python</h3>
-
-                        <div class="quiz-container trackable-activity">
-                            <div class="quiz-question">Qual é uma das principais razões para a rápida prototipagem e
-                                desenvolvimento em Python?</div>
-                            <div class="quiz-options">
-                                <div class="quiz-option" data-correct="false">Sua performance superior a C++ em todos os
-                                    casos.</div>
-                                <div class="quiz-option" data-correct="true">Sua sintaxe limpa e legível, que exige
-                                    menos código.</div>
-                                <div class="quiz-option" data-correct="false">A ausência de bibliotecas de terceiros.
-                                </div>
-                                <div class="quiz-option" data-correct="false">O fato de ser uma linguagem estaticamente
-                                    tipada.</div>
-                            </div>
-                            <div class="feedback"></div>
-                        </div>
-
-                        <div class="quiz-container trackable-activity">
-                            <div class="quiz-question">O que significa dizer que Python tem um "ecossistema rico"?</div>
-                            <div class="quiz-options">
-                                <div class="quiz-option" data-correct="false">Que a linguagem é cara para usar em
-                                    projetos comerciais.</div>
-                                <div class="quiz-option" data-correct="false">Que o código Python só funciona em um
-                                    sistema operacional.</div>
-                                <div class="quiz-option" data-correct="true">Que existe uma vasta quantidade de
-                                    bibliotecas e frameworks prontos para diversas tarefas (web, IA, dados, etc.).</div>
-                                <div class="quiz-option" data-correct="false">Que a sintaxe da linguagem é muito
-                                    complexa e cheia de regras.</div>
-                            </div>
-                            <div class="feedback"></div>
-                        </div>
-
-                        <div class="quiz-container trackable-activity">
-                            <div class="quiz-question">Para a startup InovaTech, que precisa de uma solução que possa
-                                crescer e se adaptar, qual vantagem do Python é mais relevante?</div>
-                            <div class="quiz-options">
-                                <div class="quiz-option" data-correct="true">Sua versatilidade, sendo usado tanto para o
-                                    backend web quanto para análise de dados e IA.</div>
-                                <div class="quiz-option" data-correct="false">O fato de ser a linguagem mais rápida para
-                                    processamento numérico.</div>
-                                <div class="quiz-option" data-correct="false">Sua capacidade de rodar diretamente em
-                                    navegadores sem um servidor.</div>
-                                <div class="quiz-option" data-correct="false">Ser uma linguagem de baixo nível com
-                                    acesso direto ao hardware.</div>
-                            </div>
-                            <div class="feedback"></div>
-                        </div>
-                    </div>
-
                     <!-- Nova Atividade de Pesquisa -->
                     <div class="interactive-exercise trackable-activity">
                         <h3>✍️ Sua Vez de Pesquisar!</h3>
                         <div class="exercise-instructions">
-                            <p>Agora que você viu algumas vantagens, pesquise por que grandes empresas escolhem Python
-                                em vez de outras linguagens para seus projetos de backend.</p>
+                            <p>Agora que você viu algumas vantagens, pesquise por que grandes empresas escolhem Python em vez de outras linguagens para seus projetos de backend.</p>
                             <br>
                             <h3>Vamos compartilhar com os outros estudantes suas descobertas!! 😁</h3>
                             <br>
-                            <strong>Dicas de busca:</strong>
+                            <strong>Dicas de pesquisa:</strong>
                             <ul>
-                                <li>"Why companies use Python for backend"</li>
-                                <li>"Python vs Java for web development"</li>
-                                <li>"Netflix Python backend"</li>
+                                <li>"Por que empresas usam Python para backend"</li>
+                                <li>"Python vs Java para desenvolvimento web"</li>
+                                <li>"Backend do Netflix com Python"</li>
                             </ul>
 
                             <strong>Links úteis para começar:</strong>
                             <ul>
-                                <li><a href="https://www.tiobe.com/tiobe-index/" target="_blank">Índice TIOBE
-                                        (Popularidade de Linguagens)</a></li>
-                                <li><a href="https://stackoverflow.blog/2023/08/30/how-python-became-the-most-popular-language/"
-                                        target="_blank">Stack Overflow: Como Python se tornou tão popular</a></li>
+                                <li><a href="https://www.tiobe.com/tiobe-index/" target="_blank">Índice TIOBE (Popularidade de Linguagens)</a></li>
+                                <li><a href="https://stackoverflow.blog/2023/08/30/how-python-became-the-most-popular-language/" target="_blank">Stack Overflow: Como o Python se tornou tão popular (em inglês)</a></li>
                             </ul>
 
                             <p>Anote suas descobertas abaixo:</p>
                         </div>
-                        <textarea id="research-notes" class="code-area"
-                            placeholder="Ex: Python é popular em ciência de dados por causa de bibliotecas como Pandas e NumPy..."></textarea>
+                        <textarea id="research-notes" class="code-area" placeholder="Ex: Python é popular em ciência de dados por causa de bibliotecas como Pandas e NumPy..."></textarea>
                         <button class="btn btn-primary" id="save-research-btn" style="margin-top: 10px;">Salvar
                             Anotações</button>
                         <div class="feedback" id="research-feedback"></div>
@@ -693,7 +557,7 @@ print("Potência:", a ** b)
                 </div>
 
                 <!-- Etapa 8: Condicionais e Repetição (NOVA) -->
-                <div class="step" id="step-8" data-total-activities="5">
+                <div class="step" id="step-8" data-total-activities="2">
                     <span class="bloom-level">Nível 4: Análise</span>
                     <h2>Controlando o Fluxo: Condicionais e Repetição</h2>
                     <p>Agora que você conhece o básico, vamos dar superpoderes ao seu código! Vamos ensiná-lo a <strong>tomar decisões</strong> e a <strong>repetir tarefas</strong>. Bem-vindo à caixa de ferramentas do programador!</p>
@@ -739,44 +603,29 @@ for tarefa in tarefas:
                         </div>
                     </div>
 
-                    <button class="btn btn-secondary btn-reveal" data-target="quiz-7">🧠 Teste seu conhecimento</button>
-                    <div class="interactive-exercise" id="quiz-7" style="display: none;">
-                        <h3 style="margin-top: 0;">Quiz: Condicionais e Repetição</h3>
-
-                        <div class="quiz-container trackable-activity">
-                            <div class="quiz-question">O que o código `if idade >= 18:` verifica?</div>
-                            <div class="quiz-options">
-                                <div class="quiz-option" data-correct="false">Se a idade é exatamente 18.</div>
-                                <div class="quiz-option" data-correct="true">Se a idade é maior ou igual a 18.</div>
-                                <div class="quiz-option" data-correct="false">Se a idade é menor que 18.</div>
-                                <div class="quiz-option" data-correct="false">Se a idade é diferente de 18.</div>
+                    <!-- Seção de Curiosidades com Flip Cards -->
+                    <h3 style="margin-top: 25px; text-align: center;">💡 Curiosidades</h3>
+                    <div class="flip-card-grid">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">O "Else" de um Loop</div>
+                                <div class="flip-card-back">Em Python, um loop `for` ou `while` pode ter um `else`! O bloco `else` é executado quando o loop termina normalmente (sem ser interrompido por um `break`).</div>
                             </div>
-                            <div class="feedback"></div>
                         </div>
-
-                        <div class="quiz-container trackable-activity">
-                            <div class="quiz-question">Em um loop `for item in lista:`, o que a variável `item` representa a cada iteração?</div>
-                            <div class="quiz-options">
-                                <div class="quiz-option" data-correct="false">O índice do elemento na lista.</div>
-                                <div class="quiz-option" data-correct="true">O próprio elemento da lista naquela iteração.</div>
-                                <div class="quiz-option" data-correct="false">O tamanho total da lista.</div>
-                                <div class="quiz-option" data-correct="false">A lista inteira.</div>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">O Operador Morsa `:=`</div>
+                                <div class="flip-card-back">Introduzido no Python 3.8, o "operador morsa" `:=` permite atribuir um valor a uma variável como parte de uma expressão. Útil para simplificar alguns loops `while`.</div>
                             </div>
-                            <div class="feedback"></div>
                         </div>
-
-                        <div class="quiz-container trackable-activity">
-                            <div class="quiz-question">Quando o bloco de código dentro de um `else:` é executado?</div>
-                            <div class="quiz-options">
-                                <div class="quiz-option" data-correct="false">Sempre que o `if` é verdadeiro.</div>
-                                <div class="quiz-option" data-correct="true">Apenas se a condição do `if` (e de todos os `elif`s) for falsa.</div>
-                                <div class="quiz-option" data-correct="false">Apenas se houver um erro no código.</div>
-                                <div class="quiz-option" data-correct="false">O `else` é sempre executado.</div>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">Compreensão de Listas</div>
+                                <div class="flip-card-back">Python permite criar listas de forma concisa com "List Comprehensions". Ex: `quadrados = [x*x for x in range(10)]` cria uma lista com os quadrados de 0 a 9 em uma única linha!</div>
                             </div>
-                            <div class="feedback"></div>
                         </div>
-
                     </div>
+                    <p class="text-center" style="color: #6c757d; font-style: italic;">Clique nos cards para virar!</p>
 
                     <div class="nav-buttons">
                         <button class="btn btn-primary btn-unlock-next" data-step="8" disabled>Desbloquear Próxima Etapa</button>
@@ -899,41 +748,59 @@ print("Profissão:", usuario["profissao"])</textarea>
 
                 <!-- Etapa 10: Boas Práticas -->
                 <div class="step" id="step-10" data-total-activities="0">
-                    <span class="bloom-level">Nível 4: Análise</span>
-                    <h2>Boas Práticas: Escrevendo Código Limpo</h2>
-                    <p>Escrever código que funciona é só o começo. Um bom programador escreve código que outras pessoas
-                        (e você mesmo no futuro) conseguem entender. Comentários e nomes de variáveis claros são
-                        essenciais!</p>
+                    <span class="bloom-level">Nível 5: Síntese</span>
+                    <h2>Boas Práticas: Código que Conta uma História</h2>
+                    <p>Um bom código não apenas funciona, ele se comunica! Veja a diferença entre um código misterioso e um código que é um livro aberto.</p>
 
-                    <div class="interactive-exercise">
-                        <h3>Código Sem Comentários (Difícil de ler)</h3>
-                        <div class="code-editor" style="font-size: 0.9em; border-left: 3px solid var(--danger);">
-                            n = [10, 20, 30, 40]<br>
-                            s = 0<br>
-                            for x in n:<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;s = s + x<br>
-                            m = s / len(n)<br>
-                            print(m)
+                    <div class="code-comparison">
+                        <!-- Coluna do Código Ruim -->
+                        <div class="comparison-column bad-code">
+                            <div class="comparison-header">
+                                <span class="comparison-emoji">🤯</span>
+                                <h3>Código Confuso</h3>
+                            </div>
+                            <p class="comparison-description">"O que isso faz mesmo?"</p>
+                            <div class="code-editor">
+                                n = [10, 20, 30, 40]<br>
+                                s = 0<br>
+                                for x in n:<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;s = s + x<br>
+                                m = s / len(n)<br>
+                                print(m)
+                            </div>
+                        </div>
+
+                        <!-- Coluna do Código Bom -->
+                        <div class="comparison-column good-code">
+                            <div class="comparison-header">
+                                <span class="comparison-emoji">😎</span>
+                                <h3>Código Limpo</h3>
+                            </div>
+                            <p class="comparison-description">"Ah, entendi na hora!"</p>
+                            <div class="code-editor">
+                                <span class="code-comment"># Lista de notas dos alunos</span><br>
+                                notas_alunos = [10, 20, 30, 40]<br><br>
+                                <span class="code-comment"># Inicializa a soma</span><br>
+                                soma_total = 0<br><br>
+                                <span class="code-comment"># Loop para somar as notas</span><br>
+                                for nota in notas_alunos:<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;soma_total += nota<br><br>
+                                <span class="code-comment"># Calcula e exibe a média</span><br>
+                                media = soma_total / len(notas_alunos)<br>
+                                print(f"A média é: {media}")
+                            </div>
                         </div>
                     </div>
 
-                    <div class="interactive-exercise">
-                        <h3>Código Comentado e Limpo (Fácil de ler)</h3>
-                        <div class="code-editor" style="font-size: 0.9em; border-left: 3px solid var(--success);">
-                            <span class="code-comment"># Lista de notas dos alunos</span><br>
-                            notas = [10, 20, 30, 40]<br><br>
-                            <span class="code-comment"># Inicializa a variável para somar as notas</span><br>
-                            soma_das_notas = 0<br><br>
-                            <span class="code-comment"># Percorre cada nota na lista e acumula na soma</span><br>
-                            for nota in notas:<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;soma_das_notas += nota <span class="code-comment"># Forma curta de:
-                                soma = soma + nota</span><br><br>
-                            <span class="code-comment"># Calcula a média dividindo a soma pelo número de
-                                notas</span><br>
-                            media = soma_das_notas / len(notas)<br><br>
-                            print(f"A média das notas é: {media}")
+                    <div class="benefits-section">
+                        <h3>✨ As Vantagens do Código Limpo ✨</h3>
+                        <div class="benefits-grid">
+                            <div class="benefit-item">🤝<br>Facilita a Colaboração</div>
+                            <div class="benefit-item">🔧<br>Simplifica a Manutenção</div>
+                            <div class="benefit-item">♻️<br>Promove a Reutilização</div>
                         </div>
                     </div>
+
                     <div class="nav-buttons">
                         <button class="btn btn-primary btn-unlock-next" data-step="10">Desbloquear Próxima Etapa</button>
                     </div>

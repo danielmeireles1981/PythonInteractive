@@ -1,14 +1,16 @@
 :root {
-    --primary: #2c3e50;
-    --secondary: #1abc9c;
+    --python-blue: #3776AB;
+    --python-yellow: #FFD43B;
+    --python-light: #4B8BBE;
+    --python-dark: #0D2B4E;
+    --python-green: #45824B;
+    --python-gray: #646464;
+    --python-light-bg: #f8f9fa;
     --completed: #27ae60;
     --locked: #7f8c8d;
     --light: #ecf0f1;
     --dark: #34495e;
-    --path-color: #ffd700; /* Amarelo-ouro para a cobra */
-    --stop-bg: #34495e;
-    --stop-border: #1abc9c;
-    --stop-hover-bg: #4a6a8a;
+    --path-outline: #306998;
 }
 
 * {
@@ -19,29 +21,157 @@
 }
 
 body {
-    background-color: #4a6a8a; /* Cor de fundo caso o padrão não carregue */
+    background-color: var(--python-dark);
     color: var(--light);
-    background-image: url(#grass-pattern);
-    overflow-y: auto; /* Permite scroll vertical */
-    overflow-x: hidden; /* Evita scroll horizontal */
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Fundo SVG Criativo */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%233776ab' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M100 20c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 10c38.7 0 70 31.3 70 70s-31.3 70-70 70-70-31.3-70-70 31.3-70 70-70z' fill='%23FFD43B' fill-opacity='0.05'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 100 100'%3E%3Cpath d='M50 10 L90 50 L50 90 L10 50 Z' fill='none' stroke='%2345824B' stroke-width='1' opacity='0.08'/%3E%3C/svg%3E");
+    background-size: 200px, 300px, 150px;
+    background-position: 0% 0%, 80% 20%, 20% 80%;
+    background-repeat: repeat;
+    z-index: -1;
+    animation: floatBackground 60s ease-in-out infinite;
+}
+
+@keyframes floatBackground {
+    0%, 100% {
+        background-position: 0% 0%, 80% 20%, 20% 80%;
+    }
+    25% {
+        background-position: 100% 50%, 20% 80%, 80% 20%;
+    }
+    50% {
+        background-position: 50% 100%, 80% 80%, 20% 20%;
+    }
+    75% {
+        background-position: 0% 50%, 20% 20%, 80% 80%;
+    }
+}
+
+/* Cobras Python decorativas flutuantes */
+.python-decoration {
+    position: fixed;
+    width: 120px;
+    height: 60px;
+    z-index: -1;
+    opacity: 0.1;
+    animation: floatSnake 20s ease-in-out infinite;
+}
+
+.python-decoration-1 {
+    top: 15%;
+    right: 5%;
+    animation-delay: 0s;
+}
+
+.python-decoration-2 {
+    bottom: 10%;
+    left: 5%;
+    animation-delay: -5s;
+}
+
+.python-decoration-3 {
+    top: 60%;
+    right: 15%;
+    animation-delay: -10s;
+}
+
+.python-decoration-4 {
+    top: 30%;
+    left: 10%;
+    animation-delay: -15s;
+}
+
+@keyframes floatSnake {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+        transform: translate(20px, -15px) rotate(5deg);
+    }
+    50% {
+        transform: translate(-10px, 10px) rotate(-3deg);
+    }
+    75% {
+        transform: translate(15px, 5px) rotate(2deg);
+    }
+}
+
+/* Símbolos de código flutuantes */
+.code-symbol {
+    position: fixed;
+    font-family: 'Courier New', monospace;
+    font-size: 1.2rem;
+    color: var(--python-yellow);
+    opacity: 0.1;
+    z-index: -1;
+    animation: floatSymbol 25s ease-in-out infinite;
+}
+
+.code-symbol-1 { top: 20%; left: 8%; animation-delay: 0s; }
+.code-symbol-2 { top: 70%; right: 12%; animation-delay: -8s; }
+.code-symbol-3 { top: 40%; left: 85%; animation-delay: -16s; }
+.code-symbol-4 { top: 85%; left: 20%; animation-delay: -12s; }
+.code-symbol-5 { top: 25%; right: 25%; animation-delay: -4s; }
+
+@keyframes floatSymbol {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.1;
+    }
+    25% {
+        transform: translate(15px, -20px) scale(1.1);
+        opacity: 0.15;
+    }
+    50% {
+        transform: translate(-10px, 15px) scale(0.9);
+        opacity: 0.08;
+    }
+    75% {
+        transform: translate(20px, 10px) scale(1.05);
+        opacity: 0.12;
+    }
 }
 
 .map-header {
     text-align: center;
     padding: 20px;
-    background-color: rgba(0,0,0,0.2);
+    background-color: rgba(13, 43, 78, 0.85);
+    border-bottom: 3px solid var(--python-yellow);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
+
 .map-header h1 {
-    color: var(--secondary);
+    color: var(--python-yellow);
     font-family: 'Poppins', sans-serif;
     font-size: 2.5rem;
     text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    margin-bottom: 10px;
 }
 
 .map-header p {
     font-size: 1.1rem;
     color: #bdc3c7;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .gamification-stats {
@@ -50,14 +180,34 @@ body {
     padding: 10px 20px;
     border-radius: 20px;
     display: inline-block;
-    border: 1px solid var(--secondary);
+    border: 1px solid var(--python-yellow);
     transition: transform 0.3s ease;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.gamification-stats button {
+    background-color: #c0392b;
+    color: var(--light);
+    border: 1px solid #e74c3c;
+    padding: 8px 15px;
+    border-radius: 15px;
+    cursor: pointer;
+    margin-left: 15px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.gamification-stats button:hover {
+    background-color: #e74c3c;
+    transform: scale(1.05);
 }
 
 #player-score {
     font-size: 1.2rem;
     font-weight: bold;
-    color: var(--path-color);
+    color: var(--python-yellow);
 }
 
 .map-container {
@@ -65,7 +215,7 @@ body {
     width: 100%;
     max-width: 1000px;
     margin: 40px auto;
-    height: 2400px; /* Altura para acomodar o caminho */
+    height: 2400px;
 }
 
 .map-path-svg {
@@ -73,24 +223,24 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%; /* Alterado de auto para 100% */
-    pointer-events: none; /* Permite clicar através do SVG */
+    height: 100%;
+    pointer-events: none;
 }
 
 .snake-path-outline {
     fill: none;
-    stroke: var(--info); /* Azul claro para o contorno */
-    stroke-width: 18; /* Mais grosso para ser o contorno */
+    stroke: var(--path-outline);
+    stroke-width: 18;
     stroke-linecap: round;
     stroke-dasharray: 30 20;
     animation: slither 40s linear infinite;
-    filter: drop-shadow(0 0 3px var(--info)); /* Adiciona um brilho sutil */
+    filter: drop-shadow(0 0 3px var(--path-outline));
 }
 
 .snake-path-fill {
     fill: none;
     stroke: url(#snakeGradient);
-    stroke-width: 12; /* Mais fino para que o contorno apareça */
+    stroke-width: 12;
     stroke-linecap: round;
     stroke-dasharray: 30 20;
     animation: slither 40s linear infinite;
@@ -101,7 +251,7 @@ body {
         stroke-dashoffset: 0;
     }
     to {
-        stroke-dashoffset: -1000; /* Um valor grande para animar por um bom tempo */
+        stroke-dashoffset: -1000;
     }
 }
 
@@ -111,7 +261,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 2; /* Garante que as paradas fiquem acima do SVG */
+    z-index: 2;
 }
 
 .map-stop {
@@ -125,7 +275,7 @@ body {
     text-decoration: none;
     color: var(--light);
     animation: pop-in 0.5s ease-out forwards;
-    opacity: 0; /* Começa invisível para a animação */
+    opacity: 0;
 }
 
 @keyframes pop-in {
@@ -149,7 +299,7 @@ body {
 }
 
 .map-stop.locked:hover {
-    transform: translate(-50%, -50%); /* Remove o efeito de zoom */
+    transform: translate(-50%, -50%);
 }
 
 .next-to-unlock .stop-icon {
@@ -167,12 +317,11 @@ body {
     }
 }
 
-
 .stop-icon {
     width: 60px;
     height: 60px;
-    background-color: var(--stop-bg);
-    border: 3px solid var(--stop-border);
+    background-color: var(--python-dark);
+    border: 3px solid var(--python-yellow);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -180,6 +329,8 @@ body {
     font-size: 1.8rem;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     transition: background-color 0.3s;
+    position: relative;
+    z-index: 1;
 }
 
 .map-stop.locked .stop-icon {
@@ -193,22 +344,25 @@ body {
 }
 
 .map-stop:hover .stop-icon {
-    background-color: var(--stop-hover-bg);
+    background-color: var(--python-blue);
 }
 
 .stop-label {
-    background-color: rgba(44, 62, 80, 0.8);
+    background-color: rgba(13, 43, 78, 0.9);
     padding: 8px 15px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     display: flex;
     flex-direction: column;
     white-space: nowrap;
+    border-left: 3px solid var(--python-yellow);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
 }
 
 .stop-step {
     font-size: 0.8rem;
-    color: var(--secondary);
+    color: var(--python-yellow);
     font-weight: bold;
 }
 
@@ -233,7 +387,7 @@ body {
 }
 
 .modal-content {
-    background-color: var(--dark);
+    background-color: var(--python-dark);
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     width: 100%;
@@ -242,6 +396,7 @@ body {
     position: relative;
     display: flex;
     flex-direction: column;
+    border: 2px solid var(--python-yellow);
 }
 
 .modal-close-btn {
@@ -250,13 +405,22 @@ body {
     right: -10px;
     font-size: 1.5rem;
     color: var(--light);
-    background: var(--primary);
-    border: 2px solid var(--light);
+    background: var(--python-blue);
+    border: 2px solid var(--python-yellow);
     border-radius: 50%;
     width: 40px;
     height: 40px;
     cursor: pointer;
-    z-index: 1200; /* Aumentado para garantir que fique acima de tudo */
+    z-index: 1200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.modal-close-btn:hover {
+    background-color: var(--python-yellow);
+    color: var(--python-blue);
 }
 
 .iframe-container {
@@ -282,18 +446,21 @@ body {
         font-size: 1.5rem;
     }
     .stop-label {
-        display: none; /* Esconde o texto em telas muito pequenas para não poluir */
+        display: none;
+    }
+    .map-header::before {
+        display: none;
+    }
+    
+    .python-decoration,
+    .code-symbol {
+        display: none;
     }
 }
 
 /* Ajuste para o SVG não cobrir as paradas */
 .map-stops {
-    pointer-events: auto; /* Garante que as paradas sejam clicáveis */
-}
-
-/* Ajuste no preserveAspectRatio do SVG para esticar verticalmente */
-svg.map-path-svg {
-    preserveAspectRatio: none; /* Revertido para esticar e preencher */
+    pointer-events: auto;
 }
 
 /* --- Estilos da Notificação (Toast) --- */
@@ -301,9 +468,9 @@ svg.map-path-svg {
     position: fixed;
     bottom: 20px;
     left: 50%;
-    transform: translate(-50%, 100px); /* Começa fora da tela */
-    background: linear-gradient(135deg, var(--completed), var(--secondary));
-    color: var(--dark);
+    transform: translate(-50%, 100px);
+    background: linear-gradient(135deg, var(--completed), var(--python-green));
+    color: var(--python-dark);
     padding: 15px 25px;
     border-radius: 50px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
@@ -313,6 +480,7 @@ svg.map-path-svg {
     opacity: 0;
     visibility: hidden;
     transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out, visibility 0.5s;
+    border: 2px solid var(--python-yellow);
 }
 
 .toast.show {
@@ -327,8 +495,8 @@ svg.map-path-svg {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: linear-gradient(135deg, var(--path-color), #ffb700);
-    color: var(--primary);
+    background: linear-gradient(135deg, var(--python-yellow), #ffb700);
+    color: var(--python-dark);
     padding: 20px 40px;
     border-radius: 100px;
     font-size: 2.5rem;
@@ -339,10 +507,10 @@ svg.map-path-svg {
     box-shadow: 0 10px 30px rgba(0,0,0,0.4);
     transition: all 2s cubic-bezier(0.19, 1, 0.22, 1);
     transform-origin: center;
+    border: 3px solid var(--python-blue);
 }
 
 .points-animation.show {
     opacity: 1;
-    /* A animação move o elemento para cima e para a direita (em direção ao placar) e o diminui */
     transform: translate(150%, -400%) scale(0.1);
 }
