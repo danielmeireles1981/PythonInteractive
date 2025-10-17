@@ -44,7 +44,7 @@
     </header>
 
     <main class="map-container">
-        <svg class="map-path-svg" viewBox="0 0 800 2400" preserveAspectRatio="none">
+        <svg class="map-path-svg" viewBox="0 0 800 1800" preserveAspectRatio="none">
             <defs>
                 <linearGradient id="snakeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="0%" style="stop-color:#FFD43B;" />
@@ -69,6 +69,7 @@
                 S 100 1350, 100 1400
                 S 100 1450, 400 1500
                 S 700 1550, 700 1600
+                S 700 1650, 400 1700
                 " />
             <!-- Caminho de preenchimento (frente) -->
             <path class="snake-path-fill" d="M 400 50 
@@ -87,6 +88,7 @@
                 S 100 1350, 100 1400
                 S 100 1450, 400 1500
                 S 700 1550, 700 1600
+                S 700 1650, 400 1700
                 " />
         </svg>
 
@@ -169,7 +171,12 @@
             </div>
             <div class="map-stop" data-step="16" style="left: 87.5%; top: 1600px;">
                 <div class="stop-icon"></div>
-                <div class="stop-label"><span class="stop-step">Etapa 16</span><span class="stop-title">📜
+                <div class="stop-label"><span class="stop-step">Etapa 16</span><span class="stop-title">🏁
+                        Conclusão</span></div>
+            </div>
+            <div class="map-stop" data-step="17" style="left: 50%; top: 1700px;">
+                <div class="stop-icon"></div>
+                <div class="stop-label"><span class="stop-step">Etapa 17</span><span class="stop-title">📜
                         Certificado</span></div>
             </div>
         </div>
@@ -248,7 +255,8 @@
                 { step: 13, 'title': '📝 Avaliação', icon: '📝' },
                 { step: 14, 'title': '🎮 Jogos Interativos', icon: '🎮' },
                 { step: 15, 'title': '🏆 Desafio Final', icon: '🏆' },
-                { step: 16, 'title': '📜 Certificado', icon: '📜' }
+                { step: 16, 'title': '🏁 Conclusão', icon: '🏁' },
+                { step: 17, 'title': '📜 Certificado', icon: '📜' }
             ];
 
             function updateScoreDisplay() {

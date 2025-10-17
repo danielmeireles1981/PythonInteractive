@@ -40,9 +40,31 @@ async function runPythonCode(code, outputId) {
 }
 // --- Fim da Configuração do Pyodide ---
 
+// --- Lógica do Glossário ---
+const glossaryToggle = document.getElementById('glossary-toggle');
+const glossaryModal = document.getElementById('glossary-modal-overlay');
+const glossaryCloseBtn = document.querySelector('.glossary-modal-close-btn');
+
+if (glossaryToggle && glossaryModal) {
+    glossaryToggle.addEventListener('click', () => {
+        glossaryModal.style.display = 'flex';
+    });
+}
+
+if (glossaryCloseBtn) {
+    glossaryCloseBtn.addEventListener('click', () => {
+        glossaryModal.style.display = 'none';
+    });
+}
+if (glossaryModal) {
+    glossaryModal.addEventListener('click', (e) => {
+        if (e.target === glossaryModal) glossaryModal.style.display = 'none';
+    });
+}
+
 // Controle de navegação entre etapas
 let currentStep = 1;
-const totalSteps = 16; 
+const totalSteps = 17; 
 
 function saveAndNotifyProgress(stepNumber) {
     // Salva o progresso no localStorage. Desbloqueia a PRÓXIMA etapa.
@@ -574,6 +596,41 @@ companyModalOverlay.addEventListener('click', (e) => {
     }
 });
 
+// --- Lógica para o Modal Genérico ---
+const genericModalOverlay = document.getElementById('generic-modal-overlay');
+const genericModalCloseBtn = document.querySelector('.generic-modal-close-btn');
+const genericModalTitle = document.getElementById('generic-modal-title');
+const genericModalText = document.getElementById('generic-modal-text');
+
+function openGenericModal(title, text) {
+    if (genericModalOverlay) {
+        genericModalTitle.innerHTML = title;
+        genericModalText.innerHTML = text;
+        genericModalOverlay.style.display = 'flex';
+    }
+}
+
+function closeGenericModal() {
+    if (genericModalOverlay) {
+        genericModalOverlay.style.display = 'none';
+    }
+}
+
+if (genericModalCloseBtn) genericModalCloseBtn.addEventListener('click', closeGenericModal);
+if (genericModalOverlay) genericModalOverlay.addEventListener('click', (e) => {
+    if (e.target === genericModalOverlay) {
+        closeGenericModal();
+    }
+});
+
+// Botão específico da Etapa 4
+const showPythonModalBtn = document.getElementById('show-python-modal-btn');
+if (showPythonModalBtn) {
+    showPythonModalBtn.addEventListener('click', () => {
+        openGenericModal('E o Python? 🐍', '<strong>Python</strong> combina a simplicidade de uma linguagem <strong>interpretada</strong> com o poder da <strong>Programação Orientada a Objetos</strong>, tornando-o uma escolha versátil e poderosa. 🧙‍♂️🏗️');
+    });
+}
+
 // --- Lógica do Caça-Palavras ---
 function setupWordSearch() {
     const gridElement = document.getElementById('word-search-grid');
@@ -582,33 +639,41 @@ function setupWordSearch() {
     const revealBtn = document.getElementById('reveal-word-btn');
     if (!gridElement) return;
 
-    const gridSize = 10;
+    const gridSize = 12;
     const words = [
-        { word: 'VARIAVEL', found: false, start: [1, 0], end: [1, 7], colorClass: 'found-c1' },
-        { word: 'FUNCAO', found: false, start: [0, 0], end: [0, 5], colorClass: 'found-c2' },
-        { word: 'LISTA', found: false, start: [3, 2], end: [3, 6], colorClass: 'found-c3' },
-        { word: 'IF', found: false, start: [7, 2], end: [7, 3], colorClass: 'found-c4' },
-        { word: 'ELSE', found: false, start: [4, 0], end: [7, 0], colorClass: 'found-c5' },
-        { word: 'PYTHON', found: false, start: [0, 9], end: [5, 9], colorClass: 'found-c6' }
+        { word: 'VARIAVEL', concept: '"Caixa" para guardar dados', found: false, start: [1, 0], end: [1, 7], colorClass: 'found-c1' },
+        { word: 'FUNCAO', concept: 'Bloco de código reutilizável', found: false, start: [0, 0], end: [0, 5], colorClass: 'found-c2' },
+        { word: 'LISTA', concept: 'Coleção ordenada e mutável', found: false, start: [3, 2], end: [3, 6], colorClass: 'found-c3' },
+        { word: 'IF', concept: 'Estrutura de decisão', found: false, start: [7, 2], end: [7, 3], colorClass: 'found-c4' },
+        { word: 'ELSE', concept: 'Caminho alternativo do "if"', found: false, start: [4, 0], end: [7, 0], colorClass: 'found-c5' },
+        { word: 'PYTHON', concept: 'Linguagem de programação', found: false, start: [0, 9], end: [6, 9], colorClass: 'found-c6' },
+        { word: 'FOR', concept: 'Loop para iterar sequências', found: false, start: [10, 1], end: [10, 3], colorClass: 'found-c7' },
+        { word: 'INPUT', concept: 'Captura dados do usuário', found: false, start: [2, 11], end: [6, 11], colorClass: 'found-c8' },
+        { word: 'PRINT', concept: 'Exibe dados na tela', found: false, start: [11, 6], end: [11, 10], colorClass: 'found-c1' },
+        { word: 'DICT', concept: 'Coleção com chave-valor', found: false, start: [9, 5], end: [9, 8], colorClass: 'found-c2' }
     ];
 
     const grid = [
-        ['F', 'U', 'N', 'C', 'A', 'O', 'L', 'P', 'O', 'P'],
-        ['V', 'A', 'R', 'I', 'A', 'V', 'E', 'L', 'U', 'Y'],
-        ['M', 'B', 'N', 'S', 'D', 'F', 'G', 'H', 'N', 'T'],
-        ['Q', 'W', 'L', 'I', 'S', 'T', 'A', 'Z', 'C', 'H'],
-        ['E', 'C', 'V', 'B', 'N', 'M', 'K', 'J', 'A', 'O'],
-        ['L', 'G', 'F', 'D', 'S', 'A', 'P', 'O', 'O', 'N'],
-        ['S', 'U', 'Y', 'T', 'R', 'E', 'W', 'Q', 'L', 'K'],
-        ['E', 'J', 'I', 'F', 'H', 'G', 'F', 'D', 'S', 'A'],
-        ['P', 'O', 'I', 'U', 'Y', 'T', 'R', 'E', 'W', 'Q'],
-        ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Ç']
+        ['F', 'U', 'N', 'C', 'A', 'O', 'L', 'P', 'O', 'P', 'Y', 'T'],
+        ['V', 'A', 'R', 'I', 'A', 'V', 'E', 'L', 'U', 'Y', 'T', 'H'],
+        ['M', 'B', 'N', 'S', 'D', 'F', 'G', 'H', 'N', 'T', 'R', 'I'],
+        ['Q', 'W', 'L', 'I', 'S', 'T', 'A', 'Z', 'C', 'H', 'E', 'N'],
+        ['E', 'C', 'V', 'B', 'N', 'M', 'K', 'J', 'A', 'O', 'W', 'P'],
+        ['L', 'G', 'F', 'D', 'S', 'A', 'P', 'O', 'O', 'N', 'Q', 'U'],
+        ['S', 'U', 'Y', 'T', 'R', 'E', 'W', 'Q', 'L', 'A', 'A', 'T'],
+        ['E', 'J', 'I', 'F', 'H', 'G', 'F', 'D', 'S', 'S', 'S', 'X'],
+        ['P', 'O', 'I', 'U', 'Y', 'T', 'R', 'E', 'W', 'D', 'D', 'C'],
+        ['A', 'S', 'D', 'F', 'G', 'D', 'I', 'C', 'T', 'F', 'F', 'V'],
+        ['Z', 'F', 'O', 'R', 'X', 'C', 'V', 'B', 'N', 'G', 'G', 'B'],
+        ['Q', 'A', 'Z', 'W', 'S', 'X', 'P', 'R', 'I', 'N', 'T', 'N']
     ];
 
     let isSelecting = false;
     let selectedCells = [];
 
     // Gerar grade e lista
+    gridElement.style.gridTemplateColumns = `repeat(${gridSize}, 35px)`;
+    gridElement.style.gridTemplateRows = `repeat(${gridSize}, 35px)`;
     grid.forEach((row, r) => {
         row.forEach((letter, c) => {
             const cell = document.createElement('div');
@@ -624,9 +689,14 @@ function setupWordSearch() {
         listElement.innerHTML = '';
         words.forEach(item => {
             const li = document.createElement('li');
-            li.textContent = item.word;
+            li.textContent = item.concept;
             if (item.found) {
                 li.classList.add('found-word');
+                // Adiciona a palavra encontrada ao lado do conceito
+                const foundWordSpan = document.createElement('span');
+                foundWordSpan.className = 'found-word-text';
+                foundWordSpan.textContent = ` — ${item.word}`;
+                li.appendChild(foundWordSpan);
             }
             listElement.appendChild(li);
         });

@@ -21,6 +21,11 @@
         <span class="icon-sun">☀️</span>
     </button>
 
+    <!-- Botão do Glossário Fixo -->
+    <button id="glossary-toggle" class="glossary-toggle-btn" aria-label="Abrir glossário">
+        <span>📚</span>
+    </button>
+
     <!-- Overlay para o fundo quando o menu estiver aberto -->
     <div class="overlay" id="page-overlay"></div>
 
@@ -195,23 +200,40 @@
                 <p>O <strong>backend</strong> é a parte "invisível" de um sistema, o motor que trabalha nos
                     bastidores. Ele é responsável por fazer a ponte entre a interface que você vê (front-end) e o
                     banco de dados, garantindo que tudo funcione corretamente.</p>
+                
+                <div class="interactive-exercise">
+                    <h3>🤔 Perguntas para Reflexão (Debata com seus colegas!)</h3>
+                    <ul>
+                        <li>Quando você usa um app como Instagram ou Spotify, o que você acha que acontece "por trás das câmeras" quando você curte uma foto ou ouve uma música?</li>
+                        <li>Por que você acha que a senha do seu e-mail não fica salva diretamente no seu celular ou computador, mas sim em um lugar "distante"?</li>
+                        <li>Pense em um site de e-commerce. O que o backend precisa fazer quando você clica em "Comprar Agora"?</li>
+                    </ul>
+                </div>
 
-                <img src="backend.png" alt="Infográfico explicando a diferença entre Frontend e Backend"
-                    class="content-image">
-
+                <!-- Imagem transformada em Flip Card -->
+                <div class="flip-card-grid" style="grid-template-columns: 1fr; max-width: 750px; margin: 25px auto;">
+                    <div class="flip-card" style="height: 550px;">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">Clique para revelar o que acontece nos bastidores!</div>
+                            <div class="flip-card-back" style="padding: 5px; background-color: var(--content-bg);">
+                                <img src="backend.png" alt="Infográfico explicando a diferença entre Frontend e Backend" style="width: 100%; height: 100%; object-fit: contain;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- Cards de Curiosidades sobre Backend -->
                 <h3 style="margin-top: 25px; text-align: center;">💡 Curiosidades sobre o Backend</h3>
                 <div class="flip-card-grid">
                     <div class="flip-card">
                         <div class="flip-card-inner">
-                            <div class="flip-card-front">Onde o Backend "mora"?</div>
+                            <div class="flip-card-front">🏠 Onde o Backend "mora"? 🌍</div>
                             <div class="flip-card-back">Ele roda em computadores potentes chamados servidores, que
                                 podem estar em qualquer lugar do mundo, processando solicitações 24/7.</div>
                         </div>
                     </div>
                     <div class="flip-card">
                         <div class="flip-card-inner">
-                            <div class="flip-card-front">O que é uma API?</div>
+                            <div class="flip-card-front">🤝 O que é uma API? 👨‍🍳</div>
                             <div class="flip-card-back">É como um "garçom" do backend. O frontend (cliente) faz um
                                 pedido (requisição) e a API entrega os dados corretos, sem que o cliente precise
                                 entrar na "cozinha" (banco de dados).</div>
@@ -219,7 +241,7 @@
                     </div>
                     <div class="flip-card">
                         <div class="flip-card-inner">
-                            <div class="flip-card-front">Backend e Segurança</div>
+                            <div class="flip-card-front">🛡️ Backend e Segurança 🔒</div>
                             <div class="flip-card-back">A segurança é crucial no backend. É ele quem valida senhas,
                                 protege dados sensíveis e previne ataques, atuando como o "segurança" da aplicação.
                             </div>
@@ -240,13 +262,13 @@
                     conceitos:</p>
                 <br>
                 <ul>
-                    <li><strong>Linguagens Compiladas (Ex: C++, Java):</strong> O código é traduzido
+                    <li><strong>Linguagens Compiladas (Ex: C++, Java, C#, Go, Rust):</strong> O código é traduzido
                         <strong>inteiramente</strong> para a linguagem da máquina antes da execução. Isso gera um
                         arquivo executável otimizado, que tende a ser muito rápido. Pense em uma planta de
                         engenharia detalhada que é usada para construir um prédio de uma vez.
                     </li>
                     <br>
-                    <li><strong>Linguagens Interpretadas (Ex: Python, JavaScript):</strong> O código é lido e
+                    <li><strong>Linguagens Interpretadas (Ex: Python, JavaScript, Ruby, PHP):</strong> O código é lido e
                         executado <strong>linha por linha</strong> por um programa chamado "interpretador". É mais
                         flexível e fácil de testar. É como um mestre de obras que lê a planta e constrói o prédio
                         passo a passo.</li>
@@ -257,13 +279,10 @@
                         sistemas complexos e reutilizáveis, como blocos de montar.</li>
                 </ul>
                 <br>
-                <p><strong>Python</strong> combina a simplicidade de uma linguagem <strong>interpretada</strong> com
-                    o poder da <strong>Programação Orientada a Objetos</strong>, tornando-o uma escolha versátil e
-                    poderosa. 🧙‍♂️🏗️</p>
-
-                <img src="poderpython.png"
-                    alt="Ilustração de um mago construindo estruturas com o poder do Python, representando a linguagem como interpretada e orientada a objetos"
-                    class="content-image">
+                <!-- Botão para abrir o modal sobre Python -->
+                <div class="text-center" style="margin: 20px 0;">
+                    <button class="btn btn-secondary" id="show-python-modal-btn" style="padding: 15px 30px; font-size: 1.2rem;">E o Python? 🐍</button>
+                </div>
 
                 <div class="interactive-exercise trackable-activity" id="matching-exercise-1">
                     <h3>🧠 Associe os Conceitos</h3>
@@ -282,12 +301,12 @@
                         <div class="matching-column" id="definitions-column">
                             <div class="matching-dropzone" data-match-id="2">O código é traduzido inteiramente para
                                 a linguagem da máquina antes da execução.</div>
-                            <div class="matching-dropzone" data-match-id="5">Python, JavaScript</div>
+                            <div class="matching-dropzone" data-match-id="5">Python, JavaScript, Ruby</div>
                             <div class="matching-dropzone" data-match-id="3">Estilo que organiza o código em
                                 "objetos" com dados (atributos) e comportamentos (métodos).</div>
                             <div class="matching-dropzone" data-match-id="1">O código é lido e executado linha por
                                 linha por um "interpretador" durante a execução.</div>
-                            <div class="matching-dropzone" data-match-id="4">C++, Java</div>
+                            <div class="matching-dropzone" data-match-id="4">C++, Java, Go</div>
                         </div>
                     </div>
                     <div class="feedback" id="matching-feedback"></div>
@@ -308,9 +327,7 @@
                 <h2>Por que escolher Python?</h2>
 
                 <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/LsRDACTZK_0?start=10" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/CoJSaVUuMHU?si=yXk6OqHMJkh5Erfu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
 
                 <p>Python é uma das linguagens de programação mais populares atualmente e é também uma ótima opção
@@ -916,8 +933,8 @@ print("Profissão:", usuario["profissao"])</textarea>
             <div class="step" id="step-11" data-total-activities="1">
                 <!-- <span class="bloom-level">Nível 4: Memorização</span> -->
                 <h2>Caça-Palavras Python</h2>
-                <p>Vamos fazer uma pausa divertida para reforçar os termos que aprendemos. Encontre as palavras na
-                    grade abaixo. Clique e arraste para selecionar.</p>
+                <p>Vamos fazer uma pausa divertida para reforçar os termos que aprendemos. Leia o conceito na lista e
+                    encontre a palavra correspondente na grade. Clique e arraste para selecionar.</p>
 
                 <div class="interactive-exercise trackable-activity">
                     <div class="word-search-container">
@@ -925,7 +942,7 @@ print("Profissão:", usuario["profissao"])</textarea>
                             <!-- Células serão geradas pelo JS -->
                         </div>
                         <div class="word-search-list-container">
-                            <h3>Palavras para Encontrar:</h3>
+                            <h3>Conceitos para Encontrar:</h3>
                             <ul class="word-search-list" id="word-search-list">
                                 <!-- Palavras serão geradas pelo JS -->
                             </ul>
@@ -1279,13 +1296,81 @@ print("Profissão:", usuario["profissao"])</textarea>
                     <div class="nav-buttons">
                         <button class="btn btn-secondary" id="reveal-rh360-solution">💡 Ver Dicas / Solução</button>
                         <button class="btn btn-primary btn-unlock-next" data-step="15" disabled>Desbloquear
-                            Certificado</button>
+                            Conclusão</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Etapa 16: Certificado -->
-            <div class="step" id="step-16">
+            <!-- Etapa 16: Conclusão -->
+            <div class="step" id="step-16" data-total-activities="0">
+                <div class="conclusion-banner">
+                    <div class="conclusion-icon">🏆</div>
+                    <h2>Missão Cumprida!</h2>
+                    <p>Você desvendou os segredos do Python e ajudou a InovaTech a encontrar seu caminho!</p>
+                </div>
+
+                <div class="interactive-exercise">
+                    <h3>Revisitando o Desafio da InovaTech</h3>
+                    <p>Ao longo desta jornada, atuamos como consultores para a startup <strong>InovaTech</strong>.
+                        Agora, com o conhecimento adquirido, podemos dar um veredito final.</p>
+
+                    <div class="conclusion-insights">
+                        <div class="insight-card">
+                            <div class="insight-icon">⚡</div>
+                            <h3>Agilidade e Escalabilidade</h3>
+                            <p><strong>Descoberta:</strong> A sintaxe limpa do Python permite que a equipe da InovaTech
+                                desenvolva e teste ideias rapidamente. Com frameworks poderosos como Django e Flask, a
+                                aplicação pode crescer sem limites.</p>
+                        </div>
+                        <div class="insight-card">
+                            <div class="insight-icon">💡</div>
+                            <h3>Inovação e Produtividade</h3>
+                            <p><strong>Descoberta:</strong> A curva de aprendizado suave e o imenso ecossistema de
+                                bibliotecas (IA, dados, web) capacitam a equipe a inovar e a se manter produtiva,
+                                transformando ideias em realidade com mais eficiência.</p>
+                        </div>
+                    </div>
+
+                    <div class="conclusion-verdict">
+                        <h4>Veredito Final para a InovaTech</h4>
+                        <p>Python é a escolha certa! Ele oferece o equilíbrio perfeito entre <strong>velocidade de
+                                desenvolvimento</strong>, <strong>poder de processamento</strong> e um
+                            <strong>ecossistema que fomenta o crescimento e a inovação</strong>.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="interactive-exercise">
+                    <h3>🏁 Sua Jornada Apenas Começou!</h3>
+                    <p>Parabéns por chegar até aqui! Você não apenas aprendeu os fundamentos do Python, mas também
+                        entendeu como ele se encaixa no mundo real. O que você construiu é a base para uma carreira de
+                        sucesso.</p>
+
+                    <div class="next-steps">
+                        <h3>Próximos Passos na sua Jornada 🚀</h3>
+                        <p>A programação é um caminho de aprendizado contínuo. Aqui estão alguns recursos para você ir
+                            além:</p>
+                        <ul>
+                            <li><strong><a href="https://docs.python.org/3/" target="_blank">Documentação Oficial do
+                                        Python</a>:</strong> A fonte definitiva para todas as suas dúvidas sobre a
+                                linguagem.</li>
+                            <li><strong><a href="https://www.djangoproject.com/" target="_blank">Django
+                                        Framework</a>:</strong> Um framework "baterias inclusas" para construir
+                                aplicações web complexas e robustas rapidamente.</li>
+                            <li><strong><a href="https://flask.palletsprojects.com/" target="_blank">Flask
+                                        Framework</a>:</strong> Um micro-framework leve e flexível, ótimo para começar
+                                projetos menores e APIs.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="btn btn-primary btn-unlock-next" data-step="16">Desbloquear Certificado</button>
+                </div>
+            </div>
+
+            <!-- Etapa 17: Certificado -->
+            <div class="step" id="step-17">
                 <!-- <span class="bloom-level">Nível Final: Conquista</span> -->
                 <h2>🎉 Parabéns, Mestre Python! 🎉</h2>
                 <p>Você completou com sucesso a jornada de introdução ao Python! Você demonstrou para a InovaTech o
@@ -1302,22 +1387,77 @@ print("Profissão:", usuario["profissao"])</textarea>
                     </div>
                 </div>
 
-                <div class="next-steps">
-                    <h3>Próximos Passos na sua Jornada 🚀</h3>
-                    <p>A programação é um caminho de aprendizado contínuo. Aqui estão alguns recursos para você ir
-                        além:</p>
-                    <ul>
-                        <li><strong><a href="https://docs.python.org/3/" target="_blank">Documentação Oficial do
-                                    Python</a>:</strong> A fonte definitiva para todas as suas dúvidas sobre a
-                            linguagem.</li>
-                        <li><strong><a href="https://www.djangoproject.com/" target="_blank">Django
-                                    Framework</a>:</strong> Um framework "baterias inclusas" para construir
-                            aplicações web complexas e robustas rapidamente.</li>
-                        <li><strong><a href="https://flask.palletsprojects.com/" target="_blank">Flask
-                                    Framework</a>:</strong> Um micro-framework leve e flexível, ótimo para começar
-                            projetos menores e APIs.</li>
-                    </ul>
-                </div>
+                
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary" id="restart-course-btn">Reiniciar Curso</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal do Glossário -->
+    <div class="glossary-modal-overlay" id="glossary-modal-overlay">
+        <div class="glossary-modal-content">
+            <button class="glossary-modal-close-btn">&times;</button>
+            <div class="glossary-modal-header">
+                <h3>📚 Glossário</h3>
+            </div>
+            <div class="glossary-modal-body">
+                <details>
+                    <summary>Backend</summary>
+                    <p>A parte "invisível" de um sistema, o motor que trabalha nos bastidores. É responsável pela lógica, banco de dados e comunicação com o servidor.</p>
+                </details>
+                <details>
+                    <summary>Frontend</summary>
+                    <p>A parte visual e interativa de um site ou aplicativo com a qual o usuário interage diretamente.</p>
+                </details>
+                <details>
+                    <summary>API (Application Programming Interface)</summary>
+                    <p>Uma "ponte" ou "garçom" que permite que diferentes sistemas (como o frontend e o backend) conversem entre si de forma padronizada.</p>
+                </details>
+                <details>
+                    <summary>Linguagem Interpretada</summary>
+                    <p>Uma linguagem cujo código é lido e executado linha por linha por um programa chamado "interpretador". Ex: Python, JavaScript.</p>
+                </details>
+                <details>
+                    <summary>Linguagem Compilada</summary>
+                    <p>Uma linguagem cujo código é traduzido inteiramente para a linguagem da máquina antes da execução, gerando um arquivo executável. Ex: C++, Java, Go.</p>
+                </details>
+                <details>
+                    <summary>Variável</summary>
+                    <p>Um "contêiner" ou "caixa" com um nome que armazena um valor (número, texto, etc.) na memória do computador.</p>
+                </details>
+                <details>
+                    <summary>Lista</summary>
+                    <p>Uma estrutura de dados ordenada e mutável (pode ser alterada) que armazena uma coleção de itens. Criada com colchetes `[]`.</p>
+                </details>
+                <details>
+                    <summary>Tupla</summary>
+                    <p>Uma estrutura de dados ordenada e imutável (não pode ser alterada após a criação). Ideal para dados que não devem mudar. Criada com parênteses `()`.</p>
+                </details>
+                <details>
+                    <summary>Dicionário</summary>
+                    <p>Uma estrutura de dados que armazena itens em pares de "chave-valor", permitindo acesso rápido aos valores através de suas chaves. Criado com chaves `{}`.</p>
+                </details>
+                <details>
+                    <summary>Condicional (if/elif/else)</summary>
+                    <p>Uma estrutura que permite ao programa tomar decisões e executar diferentes blocos de código com base em uma condição ser verdadeira ou falsa.</p>
+                </details>
+                <details>
+                    <summary>Loop (for/while)</summary>
+                    <p>Uma estrutura que permite que um bloco de código seja executado repetidamente. O loop `for` itera sobre uma sequência (como uma lista), enquanto o `while` continua enquanto uma condição for verdadeira.</p>
+                </details>
+                <details>
+                    <summary>Função (def)</summary>
+                    <p>Um bloco de código nomeado e reutilizável que realiza uma tarefa específica. Funções ajudam a organizar e a não repetir código.</p>
+                </details>
+                <details>
+                    <summary>Framework</summary>
+                    <p>Um conjunto de ferramentas e bibliotecas que serve como base para o desenvolvimento de software. No mundo Python, Django e Flask são frameworks web populares.</p>
+                </details>
+                <details>
+                    <summary>Sintaxe</summary>
+                    <p>O conjunto de regras que define como um programa deve ser escrito em uma linguagem específica para ser considerado correto. A sintaxe do Python é conhecida por ser limpa e legível.</p>
+                </details>
             </div>
         </div>
     </div>
@@ -1335,6 +1475,20 @@ print("Profissão:", usuario["profissao"])</textarea>
             </div>
         </div>
     </div>
+
+    <!-- Modal Genérico para Informações -->
+    <div class="generic-modal-overlay" id="generic-modal-overlay">
+        <div class="generic-modal-content">
+            <button class="generic-modal-close-btn">&times;</button>
+            <div class="generic-modal-header">
+                <h3 id="generic-modal-title"></h3>
+            </div>
+            <div class="generic-modal-body">
+                <p id="generic-modal-text"></p>
+            </div>
+        </div>
+    </div>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
