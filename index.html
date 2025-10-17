@@ -199,7 +199,8 @@
             const backgroundContainer = document.getElementById('background-animation');
             if (!backgroundContainer) return;
 
-            const symbols = ['def', 'class', 'import', 'print()', 'for in', 'if else', '()', '{}', '[]', '=>', '🐍', '<>', '"""', '#'];
+            const symbols = ['def', 'class', 'import', 'print()', 'for in', 'if else', '()', '{}', '[]', '=>', '🐍', '<>', '"""', '#', 'lambda', 'True', 'False', '__init__'];
+            const colors = ['var(--python-blue)', 'var(--python-yellow)', 'var(--python-green)'];
             const numberOfSymbols = 50; // Aumente para mais densidade
 
             for (let i = 0; i < numberOfSymbols; i++) {
@@ -211,6 +212,7 @@
                 symbolEl.style.left = `${Math.random() * 100}vw`;
                 symbolEl.style.top = `${Math.random() * 100}vh`;
                 symbolEl.style.fontSize = `${Math.random() * 1.5 + 0.5}rem`; // Tamanho entre 0.5rem e 2.0rem
+                symbolEl.style.color = colors[Math.floor(Math.random() * colors.length)];
 
                 // Duração e atraso da animação aleatórios
                 const duration = Math.random() * 20 + 15; // Duração entre 15s e 35s
