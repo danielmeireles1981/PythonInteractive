@@ -32,118 +32,46 @@ body {
 body::before {
     content: '';
     position: fixed;
+    width: 100%;
+    height: 100%;
+    /* O fundo agora é apenas uma cor sólida, a animação é feita por elementos DOM */
+    z-index: -1;
+}
+
+/* --- Nova Animação de Fundo Dinâmica --- */
+#background-animation {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: 
-        url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%233776ab' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E"),
-        url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M100 20c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 10c38.7 0 70 31.3 70 70s-31.3 70-70 70-70-31.3-70-70 31.3-70 70-70z' fill='%23FFD43B' fill-opacity='0.05'/%3E%3C/svg%3E"),
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 100 100'%3E%3Cpath d='M50 10 L90 50 L50 90 L10 50 Z' fill='none' stroke='%2345824B' stroke-width='1' opacity='0.08'/%3E%3C/svg%3E");
-    background-size: 200px, 300px, 150px;
-    background-position: 0% 0%, 80% 20%, 20% 80%;
-    background-repeat: repeat;
     z-index: -1;
-    animation: floatBackground 60s ease-in-out infinite;
+    overflow: hidden;
+    pointer-events: none;
 }
 
-@keyframes floatBackground {
-    0%, 100% {
-        background-position: 0% 0%, 80% 20%, 20% 80%;
-    }
-    25% {
-        background-position: 100% 50%, 20% 80%, 80% 20%;
-    }
-    50% {
-        background-position: 50% 100%, 80% 80%, 20% 20%;
-    }
-    75% {
-        background-position: 0% 50%, 20% 20%, 80% 80%;
-    }
-}
-
-/* Cobras Python decorativas flutuantes */
-.python-decoration {
-    position: fixed;
-    width: 120px;
-    height: 60px;
-    z-index: -1;
-    opacity: 0.1;
-    animation: floatSnake 20s ease-in-out infinite;
-}
-
-.python-decoration-1 {
-    top: 15%;
-    right: 5%;
-    animation-delay: 0s;
-}
-
-.python-decoration-2 {
-    bottom: 10%;
-    left: 5%;
-    animation-delay: -5s;
-}
-
-.python-decoration-3 {
-    top: 60%;
-    right: 15%;
-    animation-delay: -10s;
-}
-
-.python-decoration-4 {
-    top: 30%;
-    left: 10%;
-    animation-delay: -15s;
-}
-
-@keyframes floatSnake {
-    0%, 100% {
-        transform: translate(0, 0) rotate(0deg);
-    }
-    25% {
-        transform: translate(20px, -15px) rotate(5deg);
-    }
-    50% {
-        transform: translate(-10px, 10px) rotate(-3deg);
-    }
-    75% {
-        transform: translate(15px, 5px) rotate(2deg);
-    }
-}
-
-/* Símbolos de código flutuantes */
-.code-symbol {
-    position: fixed;
+.floating-symbol {
+    position: absolute;
     font-family: 'Courier New', monospace;
-    font-size: 1.2rem;
-    color: var(--python-yellow);
-    opacity: 0.1;
-    z-index: -1;
-    animation: floatSymbol 25s ease-in-out infinite;
+    color: var(--python-blue);
+    opacity: 0; /* Começa invisível */
+    white-space: nowrap;
 }
 
-.code-symbol-1 { top: 20%; left: 8%; animation-delay: 0s; }
-.code-symbol-2 { top: 70%; right: 12%; animation-delay: -8s; }
-.code-symbol-3 { top: 40%; left: 85%; animation-delay: -16s; }
-.code-symbol-4 { top: 85%; left: 20%; animation-delay: -12s; }
-.code-symbol-5 { top: 25%; right: 25%; animation-delay: -4s; }
-
-@keyframes floatSymbol {
-    0%, 100% {
-        transform: translate(0, 0) scale(1);
-        opacity: 0.1;
+@keyframes floatAndDrift {
+    0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity: 0;
     }
-    25% {
-        transform: translate(15px, -20px) scale(1.1);
+    10%, 90% {
         opacity: 0.15;
     }
     50% {
-        transform: translate(-10px, 15px) scale(0.9);
-        opacity: 0.08;
+        transform: translateY(-20px) translateX(30px) rotate(15deg);
     }
-    75% {
-        transform: translate(20px, 10px) scale(1.05);
-        opacity: 0.12;
+    100% {
+        transform: translateY(40px) translateX(-50px) rotate(-25deg);
+        opacity: 0;
     }
 }
 
@@ -449,11 +377,6 @@ body::before {
         display: none;
     }
     .map-header::before {
-        display: none;
-    }
-    
-    .python-decoration,
-    .code-symbol {
         display: none;
     }
 }
