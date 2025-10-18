@@ -311,7 +311,8 @@
                     </div>
                     <div class="feedback" id="matching-feedback"></div>
                     <div class="nav-buttons" style="justify-content: center; margin-top: 15px;">
-                        <button class="btn btn-secondary" id="reset-matching-btn">Resetar</button>
+                        <button class="btn btn-primary" id="check-matching-btn">Verificar Associações</button>
+                        <button class="btn btn-secondary" id="reset-matching-btn" style="margin-left: 10px;">Resetar</button>
                     </div>
                 </div>
 
@@ -530,7 +531,7 @@
                 <!-- <span class="bloom-level">Nível 3: Aplicação Guiada</span> -->
                 <h2>Primeiros Passos em Python</h2>
 
-                <div class="interactive-exercise">
+                <div class="interactive-exercise trackable-activity">
                     <h3>1. Mostrando uma mensagem com `print()`</h3>
                     <p>A primeira coisa que aprendemos em qualquer linguagem é como "falar". Em Python, usamos a
                         função <code>print()</code> para exibir mensagens na tela. Clique em
@@ -552,7 +553,7 @@ print("Bem-vindo ao Python!")
                     </div>
                 </div>
 
-                <div class="interactive-exercise">
+                <div class="interactive-exercise trackable-activity">
                     <h3>2. Guardando informações com Variáveis</h3>
                     <p>Podemos guardar informações em "caixas" chamadas variáveis. Aqui, guardamos o texto "Maria"
                         na variável <code>nome</code> e depois o exibimos.</p>
@@ -571,7 +572,7 @@ print("Olá, " + nome)
                     </div>
                 </div>
 
-                <div class="interactive-exercise">
+                <div class="interactive-exercise trackable-activity">
                     <h3>3. Interagindo com o usuário com `input()`</h3>
                     <p>Agora, vamos tornar o programa interativo! A função <code>input()</code> pausa o programa e
                         espera que o usuário digite algo. <strong>Sua vez:</strong> mude o texto dentro do
@@ -589,7 +590,7 @@ print("Bem-vindo(a), " + nome + "!")</textarea>
                     </div>
                 </div>
 
-                <div class="interactive-exercise">
+                <div class="interactive-exercise trackable-activity">
                     <h3>4. Trabalhando com Números</h3>
                     <p>Python lida com diferentes tipos de números, como inteiros (<code>int</code>) e números com
                         casas decimais (<code>float</code>). Clique em <strong>Executar</strong> para ver como
@@ -606,14 +607,13 @@ altura = 1.75      # Um número de ponto flutuante (float)
 
 print("Idade:", idade)
 print("Altura:", altura)
-print("Minha idade é:", idade, "anos e minha altura é", altura, "metros.)
 
 # Experimente mudar os valores de idade e altura</textarea>
                         <div class="exercise-output" id="output-step4"></div>
                     </div>
                 </div>
 
-                <div class="interactive-exercise">
+                <div class="interactive-exercise trackable-activity">
                     <h3>5. Operações Matemáticas</h3>
                     <p>Você pode usar Python como uma calculadora poderosa. Experimente mudar os valores de
                         <code>a</code> e <code>b</code> e executar o código novamente.
@@ -1090,6 +1090,9 @@ print("Profissão:", usuario["profissao"])</textarea>
                                 em um banco de dados.</div>
                             <div class="quiz-option" data-correct="false">Exibir imagens em uma galeria.</div>
                         </div>
+                        <div class="nav-buttons" style="justify-content: flex-start; margin-top: 10px;">
+                            <button class="btn btn-secondary btn-reveal-answer">💡 Revelar Resposta</button>
+                        </div>
                         <div class="feedback"></div>
                     </div>
                     <!-- Q2 -->
@@ -1104,6 +1107,9 @@ print("Profissão:", usuario["profissao"])</textarea>
                             <div class="quiz-option" data-correct="false">Permite criar interfaces gráficas mais
                                 bonitas.</div>
                         </div>
+                        <div class="nav-buttons" style="justify-content: flex-start; margin-top: 10px;">
+                            <button class="btn btn-secondary btn-reveal-answer">💡 Revelar Resposta</button>
+                        </div>
                         <div class="feedback"></div>
                     </div>
                     <!-- Q3 -->
@@ -1113,6 +1119,9 @@ print("Profissão:", usuario["profissao"])</textarea>
                             <div class="quiz-option" data-correct="false">3</div>
                             <div class="quiz-option" data-correct="false">3.33</div>
                             <div class="quiz-option" data-correct="true">1 (o resto da divisão)</div>
+                        </div>
+                        <div class="nav-buttons" style="justify-content: flex-start; margin-top: 10px;">
+                            <button class="btn btn-secondary btn-reveal-answer">💡 Revelar Resposta</button>
                         </div>
                         <div class="feedback"></div>
                     </div>
@@ -1125,6 +1134,9 @@ print("Profissão:", usuario["profissao"])</textarea>
                             <div class="quiz-option" data-correct="true">Menor</div>
                             <div class="quiz-option" data-correct="false">Nenhuma saída.</div>
                         </div>
+                        <div class="nav-buttons" style="justify-content: flex-start; margin-top: 10px;">
+                            <button class="btn btn-secondary btn-reveal-answer">💡 Revelar Resposta</button>
+                        </div>
                         <div class="feedback"></div>
                     </div>
                     <!-- Q5 -->
@@ -1136,6 +1148,9 @@ print("Profissão:", usuario["profissao"])</textarea>
                             <div class="quiz-option" data-correct="true">Tupla 💎</div>
                             <div class="quiz-option" data-correct="false">Dicionário 📖</div>
                         </div>
+                        <div class="nav-buttons" style="justify-content: flex-start; margin-top: 10px;">
+                            <button class="btn btn-secondary btn-reveal-answer">💡 Revelar Resposta</button>
+                        </div>
                         <div class="feedback"></div>
                     </div>
                     <!-- Q6 -->
@@ -1143,8 +1158,12 @@ print("Profissão:", usuario["profissao"])</textarea>
                         <p><strong>6. Desafio de Código:</strong> Declare duas variáveis, `a` e `b`, com valores 15
                             e 30, e imprima a soma delas.</p>
                         <div class="code-playground">
-                            <div class="code-header"><span>soma.py</span><button
-                                    class="btn btn-primary check-code-btn">Verificar</button></div>
+                            <div class="code-header"><span>soma.py</span>
+                                <div>
+                                    <button class="btn btn-secondary btn-reveal-solution" data-challenge-id="1" style="margin-right: 10px;">💡 Revelar Solução</button>
+                                    <button class="btn btn-primary check-code-btn">Verificar</button>
+                                </div>
+                            </div>
                             <textarea class="code-area" placeholder="# Escreva seu código aqui..."></textarea>
                             <div class="exercise-output"></div>
                             <div class="feedback"></div>
@@ -1156,8 +1175,12 @@ print("Profissão:", usuario["profissao"])</textarea>
                             `if/else` para imprimir "Maior de idade" se a idade for 18 ou mais, e "Menor de idade"
                             caso contrário.</p>
                         <div class="code-playground">
-                            <div class="code-header"><span>idade.py</span><button
-                                    class="btn btn-primary check-code-btn">Verificar</button></div>
+                            <div class="code-header"><span>idade.py</span>
+                                <div>
+                                    <button class="btn btn-secondary btn-reveal-solution" data-challenge-id="2" style="margin-right: 10px;">💡 Revelar Solução</button>
+                                    <button class="btn btn-primary check-code-btn">Verificar</button>
+                                </div>
+                            </div>
                             <textarea class="code-area" placeholder="# Escreva seu código aqui..."></textarea>
                             <div class="exercise-output"></div>
                             <div class="feedback"></div>
@@ -1168,8 +1191,12 @@ print("Profissão:", usuario["profissao"])</textarea>
                         <p><strong>8. Desafio de Código:</strong> Use um loop `for` e a função `range()` para
                             imprimir os números de 1 a 5 (inclusive).</p>
                         <div class="code-playground">
-                            <div class="code-header"><span>loop.py</span><button
-                                    class="btn btn-primary check-code-btn">Verificar</button></div>
+                            <div class="code-header"><span>loop.py</span>
+                                <div>
+                                    <button class="btn btn-secondary btn-reveal-solution" data-challenge-id="3" style="margin-right: 10px;">💡 Revelar Solução</button>
+                                    <button class="btn btn-primary check-code-btn">Verificar</button>
+                                </div>
+                            </div>
                             <textarea class="code-area" placeholder="# Escreva seu código aqui..."></textarea>
                             <div class="exercise-output"></div>
                             <div class="feedback"></div>
@@ -1180,8 +1207,12 @@ print("Profissão:", usuario["profissao"])</textarea>
                         <p><strong>9. Desafio de Código:</strong> Crie uma lista chamada `frutas` com "Maçã",
                             "Banana" e "Uva". Em seguida, imprima o último item da lista.</p>
                         <div class="code-playground">
-                            <div class="code-header"><span>lista.py</span><button
-                                    class="btn btn-primary check-code-btn">Verificar</button></div>
+                            <div class="code-header"><span>lista.py</span>
+                                <div>
+                                    <button class="btn btn-secondary btn-reveal-solution" data-challenge-id="4" style="margin-right: 10px;">💡 Revelar Solução</button>
+                                    <button class="btn btn-primary check-code-btn">Verificar</button>
+                                </div>
+                            </div>
                             <textarea class="code-area" placeholder="# Escreva seu código aqui..."></textarea>
                             <div class="exercise-output"></div>
                             <div class="feedback"></div>
@@ -1193,8 +1224,12 @@ print("Profissão:", usuario["profissao"])</textarea>
                             "marca" e "ano", e valores "Tesla" e 2023. Imprima o valor associado à chave "marca".
                         </p>
                         <div class="code-playground">
-                            <div class="code-header"><span>dicionario.py</span><button
-                                    class="btn btn-primary check-code-btn">Verificar</button></div>
+                            <div class="code-header"><span>dicionario.py</span>
+                                <div>
+                                    <button class="btn btn-secondary btn-reveal-solution" data-challenge-id="5" style="margin-right: 10px;">💡 Revelar Solução</button>
+                                    <button class="btn btn-primary check-code-btn">Verificar</button>
+                                </div>
+                            </div>
                             <textarea class="code-area" placeholder="# Escreva seu código aqui..."></textarea>
                             <div class="exercise-output"></div>
                             <div class="feedback"></div>

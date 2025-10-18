@@ -32,6 +32,12 @@ async function runPythonCode(code, outputId) {
     } catch (err) {
         output.textContent = `Erro: ${err}`;
     } finally {
+        // Marca a atividade como concluída após a execução
+        const activityContainer = output.closest('.trackable-activity');
+        if (activityContainer && !activityContainer.classList.contains('completed')) {
+            activityContainer.classList.add('completed');
+            checkStepCompletion(currentStep);
+        }
         // Restaura a saída padrão para o console do navegador
         if (pyodideReady) {
             pyodide.runPython("sys.stdout = sys.__stdout__");
@@ -98,22 +104,28 @@ function showStep(stepNumber) {
     saveAndNotifyProgress(stepNumber);
 }
 
+/**
+ * Verifica se todas as atividades de uma etapa foram concluídas.
+ * Se sim, dispara um evento 'step:completed'.
+ * @param {number} stepNumber - O número da etapa a ser verificada.
+ */
 function checkStepCompletion(stepNumber) {
     const stepElement = document.getElementById(`step-${stepNumber}`);
     if (!stepElement) return;
 
     const totalActivities = parseInt(stepElement.dataset.totalActivities || '0');
-    if (totalActivities === 0) { // Se a etapa não tem atividades, o botão já vem habilitado
-        const unlockBtn = stepElement.querySelector('.btn-unlock-next');
-        if (unlockBtn) unlockBtn.disabled = false;
+    
+    // Se a etapa não tem atividades, consideramos completa por padrão.
+    if (totalActivities === 0) {
+        stepElement.dispatchEvent(new CustomEvent('step:completed', { detail: { step: stepNumber } }));
         return;
     }
 
     const completedActivities = stepElement.querySelectorAll('.trackable-activity.completed').length;
 
     if (completedActivities >= totalActivities) {
-        const unlockBtn = stepElement.querySelector('.btn-unlock-next');
-        if (unlockBtn) unlockBtn.disabled = false;
+        // Dispara um evento para indicar que a etapa foi concluída.
+        stepElement.dispatchEvent(new CustomEvent('step:completed', { detail: { step: stepNumber } }));
     }
 }
 
@@ -175,16 +187,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 checkStepCompletion(currentStep);
             }
         });
-
-        // Verificar se o formulário já foi preenchido (se houver dados salvos)
-        // (Adicione aqui a lógica para verificar se o formulário já foi preenchido
-        // e, nesse caso, marcar a atividade como completa inicialmente)
-        // Exemplo:
-        // if (localStorage.getItem('studentData')) {
-        //     const activityContainer = studentForm.closest('.interactive-exercise');
-        //     activityContainer.classList.add('completed');
-        //     checkStepCompletion(currentStep);
-        // }
     }
 
     // Verifica se a página foi carregada através de uma âncora (ex: #step-5)
@@ -193,12 +195,27 @@ document.addEventListener('DOMContentLoaded', () => {
         const stepFromHash = parseInt(hash.replace('#step-', ''));
         if (!isNaN(stepFromHash) && stepFromHash > 0 && stepFromHash <= totalSteps) {
             showStep(stepFromHash);
+            // Adicionado para verificar a conclusão ao carregar diretamente uma etapa
+            checkStepCompletion(stepFromHash);
         }
 
     } else {
         // Se não houver hash, verifique a conclusão da primeira etapa
         checkStepCompletion(1);
     }
+
+    // Listener centralizado para o evento de conclusão de etapa
+    document.querySelectorAll('.step').forEach(step => {
+        step.addEventListener('step:completed', (e) => {
+            const stepNumber = e.detail.step;
+            const stepElement = document.getElementById(`step-${stepNumber}`);
+            const unlockBtn = stepElement.querySelector('.btn-unlock-next');
+            if (unlockBtn) unlockBtn.disabled = false;
+        });
+    });
+
+    // Garante que a lógica do exercício de associação da Etapa 4 seja carregada
+    setupMatchingExercise('matching-exercise-1');
 });
 
 // Configurar quizzes
@@ -257,13 +274,6 @@ function runInteractiveCode(codeId, outputId) {
     const code = document.getElementById(codeId).value;
     const output = document.getElementById(outputId);
     
-    // Marca a atividade como concluída ao executar
-    const playground = output.closest('.code-playground');
-    if (playground && !playground.classList.contains('completed')) {
-        playground.classList.add('completed');
-        checkStepCompletion(currentStep);
-    }
-
     // Extrai a pergunta do input()
     const questionMatch = code.match(/input\("([^"]+)"\)/);
     const question = questionMatch ? questionMatch[1] : "Digite um valor: ";
@@ -275,6 +285,13 @@ function runInteractiveCode(codeId, outputId) {
         setTimeout(() => {
             // Simula a saída do print
             const welcomeMessage = `Bem-vindo(a), ${userInput}!`;
+            
+            // Marca a atividade como concluída APÓS a interação do usuário
+            const exerciseContainer = output.closest('.interactive-exercise');
+            if (exerciseContainer && !exerciseContainer.classList.contains('completed')) {
+                exerciseContainer.classList.add('completed');
+                checkStepCompletion(currentStep);
+            }
             output.textContent = welcomeMessage;
         }, 500);
     }
@@ -301,13 +318,14 @@ __builtins__.input = js_prompt
 
     try {
         // Marca a atividade como concluída ao executar
-        const playground = output.closest('.code-playground');
-        if (playground && !playground.classList.contains('completed')) {
-            playground.classList.add('completed');
+        const activityContainer = output.closest('.trackable-activity');
+        if (activityContainer && !activityContainer.classList.contains('completed')) {
+            activityContainer.classList.add('completed');
             checkStepCompletion(currentStep);
         }
 
         await pyodide.runPythonAsync(code);
+
         const stdout = pyodide.runPython("sys.stdout.getvalue()");
         output.textContent = stdout ? stdout.trim() : "Código executado sem saída.";
         return true; // Sucesso
@@ -324,7 +342,13 @@ __builtins__.input = js_prompt
 
 document.getElementById('run-rh360').addEventListener('click', async () => {
     const code = document.getElementById('rh360-code').value;
-    await runInteractivePythonCode(code, 'rh360-output');
+    const success = await runInteractivePythonCode(code, 'rh360-output');
+    // Apenas marca como completo se o código rodar sem erros
+    if (success) {
+        const activityContainer = document.getElementById('run-rh360').closest('.trackable-activity');
+        activityContainer.classList.add('completed');
+        checkStepCompletion(currentStep);
+    }
 });
 
 document.getElementById('reveal-rh360-solution').addEventListener('click', function() {
@@ -455,6 +479,7 @@ function setupDragDropExercise(containerId) {
             const activityContainer = container.closest('.trackable-activity');
             activityContainer.classList.add('completed');
             checkStepCompletion(currentStep);
+            confetti(); // Adiciona um efeito de comemoração!
         }
     });
 
@@ -481,6 +506,7 @@ function setupMatchingExercise(containerId) {
     const definitionsColumn = container.querySelector('#definitions-column');
     const feedback = container.querySelector('#matching-feedback');
     const resetBtn = container.querySelector('#reset-matching-btn');
+    const checkBtn = container.querySelector('#check-matching-btn');
 
     let draggedItem = null;
 
@@ -515,9 +541,25 @@ function setupMatchingExercise(containerId) {
 
     definitionsColumn.addEventListener('drop', e => {
         e.preventDefault();
-        const dropzone = e.target.closest('.matching-dropzone');
-        if (dropzone && draggedItem && !dropzone.classList.contains('correct')) {
+        // Encontra a dropzone mais próxima, não importa se o alvo é a zona ou um item dentro dela.
+        let dropzone = e.target;
+        if (!dropzone.classList.contains('matching-dropzone')) {
+            dropzone = dropzone.closest('.matching-dropzone');
+        }
+
+        if (dropzone && draggedItem) {
             dropzone.classList.remove('over');
+            
+            // Se a dropzone já contiver um item, devolva-o à coluna de origem.
+            const existingItem = dropzone.querySelector('.matching-item');
+            if (existingItem) {
+                conceptsColumn.appendChild(existingItem);
+                existingItem.draggable = true;
+                existingItem.classList.remove('matched');
+                // Limpa o status da dropzone se o item for removido
+                dropzone.classList.remove('correct');
+            }
+
             const isCorrect = draggedItem.dataset.matchId === dropzone.dataset.matchId;
 
             if (isCorrect) {
@@ -528,20 +570,32 @@ function setupMatchingExercise(containerId) {
                 draggedItem.classList.add('matched');
                 dropzone.classList.add('correct');
                 draggedItem = null;
-
-                // Verifica se todas as zonas foram preenchidas
-                const allCorrect = definitionsColumn.querySelectorAll('.matching-dropzone.correct').length === conceptsColumn.children.length;
-                if (allCorrect) {
-                    feedback.textContent = '✅ Excelente! Todas as associações estão corretas.';
-                    feedback.className = 'feedback correct';
-                    feedback.style.display = 'block';
-                    container.classList.add('completed');
-                    checkStepCompletion(currentStep);
-                }
             } else {
                 dropzone.classList.add('incorrect');
                 setTimeout(() => dropzone.classList.remove('incorrect'), 500);
             }
+        }
+    });
+
+    checkBtn.addEventListener('click', () => {
+        const totalActivities = conceptsColumn.querySelectorAll('.matching-item').length + definitionsColumn.querySelectorAll('.matching-item').length;
+        const dropzones = definitionsColumn.querySelectorAll('.matching-dropzone');
+        const allMatched = Array.from(dropzones).every(dz => dz.classList.contains('correct'));
+        const matchedCount = definitionsColumn.querySelectorAll('.matching-dropzone.correct').length;
+
+        if (allMatched && matchedCount === totalActivities) {
+            feedback.textContent = '✅ Excelente! Todas as associações estão corretas.';
+            feedback.className = 'feedback correct';
+            feedback.style.display = 'block';
+            
+            const activityContainer = container.closest('.trackable-activity');
+            if (activityContainer) activityContainer.classList.add('completed');
+            checkStepCompletion(currentStep);
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+        } else {
+            feedback.textContent = '❌ Ainda faltam associações ou algumas estão incorretas. Continue tentando!';
+            feedback.className = 'feedback incorrect';
+            feedback.style.display = 'block';
         }
     });
 
@@ -743,6 +797,7 @@ function setupWordSearch() {
             const activityContainer = gridElement.closest('.trackable-activity');
             if(activityContainer) {
                 activityContainer.classList.add('completed');
+                checkStepCompletion(currentStep);
             }
         }
     });
@@ -828,7 +883,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 expectedOutput = "Uva";
                 break;
             case 5: // Dicionário
-                isCorrect = code.includes('carro') && code.includes('["marca"]');
+                isCorrect = code.includes('carro') && (code.includes('["marca"]') || code.includes("['marca']"));
                 expectedOutput = "Tesla";
                 break;
         }
@@ -847,6 +902,26 @@ document.addEventListener('DOMContentLoaded', () => {
         feedbackDiv.style.display = 'block';
         return isCorrect;
     }
+
+    // Adiciona listener para os botões de revelar solução de código
+    document.querySelectorAll('.btn-reveal-solution').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const challengeNum = parseInt(this.dataset.challengeId);
+            const challengeContainer = document.getElementById(`code-challenge-${challengeNum}`);
+            if (!challengeContainer) return;
+
+            const codeArea = challengeContainer.querySelector('.code-area');
+            const solutions = [
+                "a = 15\nb = 30\nprint(a + b)",
+                "idade = 25\nif idade >= 18:\n    print('Maior de idade')\nelse:\n    print('Menor de idade')",
+                "for i in range(1, 6):\n    print(i)",
+                "frutas = ['Maçã', 'Banana', 'Uva']\nprint(frutas[-1])",
+                "carro = {'marca': 'Tesla', 'ano': 2023}\nprint(carro['marca'])"
+            ];
+            codeArea.value = solutions[challengeNum - 1];
+            checkCodeChallenge(challengeNum); // Valida e marca como completo
+        });
+    });
 
     // Adiciona listener para cada botão de verificação de código
     document.querySelectorAll('.check-code-btn').forEach((btn, index) => {
@@ -879,26 +954,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setupWordSearch();
 
+    // Adiciona listener para os botões de revelar resposta do quiz
+    document.querySelectorAll('.btn-reveal-answer').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const quizContainer = this.closest('.quiz-container');
+            if (!quizContainer) return;
+
+            const correctOption = quizContainer.querySelector('.quiz-option[data-correct="true"]');
+            const feedback = quizContainer.querySelector('.feedback');
+
+            if (correctOption) correctOption.classList.add('correct');
+            feedback.textContent = '💡 A resposta correta foi destacada.';
+            feedback.className = 'feedback correct';
+            feedback.style.display = 'block';
+            quizContainer.classList.add('completed');
+            checkStepCompletion(currentStep);
+        });
+    });
+
     // Configurar botões "Desbloquear Próxima Etapa"
     document.querySelectorAll('.btn-unlock-next').forEach(button => {
         button.addEventListener('click', function() {
             const step = parseInt(this.dataset.step);
-            // Envia uma mensagem específica para mostrar a recompensa na página do mapa
-            if (window.parent) {
-                window.parent.postMessage({ type: 'SHOW_REWARD', points: 10 }, '*');
-            }
 
             // Lógica existente para salvar o progresso
             saveAndNotifyProgress(step);
             this.textContent = '✅ Desbloqueado!';
             this.disabled = true; // Desabilita após o clique para evitar múltiplos envios
+
+            // Envia uma mensagem específica para mostrar a recompensa na página do mapa
+            if (window.parent) {
+                window.parent.postMessage({ type: 'SHOW_REWARD', points: 10, step: step }, '*');
+            }
         });
     });
 
     // --- Lógica para Geração de Certificado PDF ---
     const generatePdfBtn = document.getElementById('generate-pdf-btn');
     if (generatePdfBtn) {
-        generatePdfBtn.addEventListener('click', () => {
+        generatePdfBtn.addEventListener('click', async () => { // 1. Tornar a função assíncrona
             const savedData = localStorage.getItem('studentData');
             let studentName = '';
             if (savedData) {
@@ -918,33 +1012,81 @@ document.addEventListener('DOMContentLoaded', () => {
                 format: 'a4'
             });
 
-            // Design do Certificado
-            doc.setFillColor(248, 249, 250); // Fundo cinza claro
+            // --- NOVO DESIGN DO CERTIFICADO ---
+
+            const pythonBlue = '#3776AB';
+            const pythonYellow = '#FFD43B';
+            const darkText = '#212529';
+            const lightText = '#6c757d';
+
+            // Fundo com cor sólida (gradiente e fonte customizada removidos para corrigir erros)
+            const backgroundColor = '#f0f8ff'; // AliceBlue
+            doc.setFillColor(backgroundColor);
             doc.rect(0, 0, 297, 210, 'F');
 
-            doc.setDrawColor(55, 118, 171); // Azul Python
-            doc.setLineWidth(10);
-            doc.rect(5, 5, 287, 200);
+            // Bordas decorativas
+            doc.setDrawColor(pythonBlue);
+            doc.setLineWidth(1.5);
+            doc.rect(10, 10, 277, 190);
 
-            doc.setTextColor(55, 118, 171); // Azul Python
+            doc.setDrawColor(pythonYellow);
+            doc.setLineWidth(0.5);
+            doc.rect(12, 12, 273, 186);
+
+            // 2. Carrega a imagem dinamicamente
+            const loadImage = (src) => {
+                return new Promise((resolve, reject) => {
+                    const img = new Image();
+                    img.onload = () => resolve(img);
+                    img.onerror = reject;
+                    img.src = src;
+                });
+            };
+
+            const logoImage = await loadImage('logo.png');
+
+            // Desenha o logo no topo
+            const logoWidth = 40;
+            const logoHeight = 40;
+            const logoX = (297 - logoWidth) / 2; // Centraliza o logo
+            const logoY = 25;
+            doc.addImage(logoImage, 'PNG', logoX, logoY, logoWidth, logoHeight);
+
+            // Título
+            doc.setTextColor(pythonBlue);
             doc.setFont('helvetica', 'bold');
-            doc.setFontSize(40);
-            doc.text('CERTIFICADO DE CONCLUSÃO', 148.5, 50, { align: 'center' });
+            doc.setFontSize(36);
+            doc.text('Certificado de Conclusão', 148.5, 85, { align: 'center' });
 
-            doc.setTextColor(33, 37, 41); // Texto escuro
+            // Texto "concedido a"
+            doc.setTextColor(darkText);
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(18);
-            doc.text('Este certificado é concedido a', 148.5, 80, { align: 'center' });
+            doc.text('Este certificado é concedido a', 148.5, 95, { align: 'center' });
 
-            doc.setTextColor(55, 118, 171);
-            doc.setFont('helvetica', 'bolditalic');
+            // Nome do Aluno
+            doc.setTextColor(pythonBlue);
+            doc.setFont('times', 'bolditalic');
             doc.setFontSize(32);
-            doc.text(studentName, 148.5, 105, { align: 'center' });
+            doc.text(studentName, 148.5, 115, { align: 'center' });
 
-            doc.setTextColor(33, 37, 41);
+            // Descrição do curso
+            doc.setTextColor(darkText);
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(16);
-            doc.text('Por ter concluído com sucesso a aula de "Introdução ao Python para Backend".', 148.5, 130, { align: 'center' });
+            doc.text('Por ter concluído com sucesso a aula interativa de', 148.5, 135, { align: 'center' });
+            doc.setFont('helvetica', 'bold');
+            doc.text('"Introdução ao Python para Backend"', 148.5, 145, { align: 'center' });
+
+            // Data e aviso de validade
+            const today = new Date();
+            const dateString = today.toLocaleDateString('pt-BR');
+            doc.setTextColor(lightText);
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(10);
+            doc.text(`Emitido em: ${dateString}`, 148.5, 175, { align: 'center' });
+            doc.setFont('helvetica', 'italic');
+            doc.text('Este certificado é gerado para fins educacionais e de demonstração. Não possui validade como documento formal.', 148.5, 180, { align: 'center' });
 
             doc.save(`Certificado-Python-${studentName.replace(/ /g, '_')}.pdf`);
         });

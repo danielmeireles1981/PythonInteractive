@@ -342,16 +342,6 @@
                 const data = event.data;
 
                 if (data?.type === 'SHOW_REWARD') {
-                    // --- Lógica de Gamificação ---
-                    const points = data.points || 10;
-                    triggerPointsAnimation(points);
-                    addPoints(points);
-                    showReward(`+${points} Pontos! Etapa concluída!`);
-                    triggerConfetti();
-                    // --- Fim da Lógica de Gamificação ---
-                }
-
-                if (data?.type === 'UPDATE_PROGRESS' && data.unlockedStep > currentUnlockedStep) {
                     const newlyUnlockedStep = data.unlockedStep;
                     localStorage.setItem('unlockedStep', newlyUnlockedStep);
 
@@ -360,9 +350,20 @@
                     // Usamos 'once: true' para que este evento só dispare uma vez.
                     modal.addEventListener('transitionend', () => {
                         // A mensagem de recompensa é mais genérica agora
-                        const stepTitle = stopsData.find(s => s.step === (newlyUnlockedStep - 1))?.title || `Etapa ${newlyUnlockedStep - 1}`;
-                        showReward(`Parabéns! Você desbloqueou: ${stepTitle}`);
+                        const stepTitle = stopsData.find(s => s.step === (data.step))?.title || `Etapa ${data.step}`;
+                        showReward(`Parabéns! Você concluiu: ${stepTitle}`);
                         scrollToStep(newlyUnlockedStep);
+                    }, { once: true });
+                }
+
+                if (data?.type === 'SHOW_REWARD') {
+                    const points = data.points || 10;
+                    triggerPointsAnimation(points);
+                    addPoints(points);
+                    triggerConfetti();
+                    // A mensagem de recompensa agora é mostrada quando o modal fecha
+                    modal.addEventListener('transitionend', () => {
+                        showReward(`+${points} Pontos! Atividades da etapa concluídas!`);
                     }, { once: true });
                 }
             });
