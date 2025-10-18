@@ -351,6 +351,10 @@
                 iframe.src = ''; // Limpa o iframe para parar a execução
                 document.body.style.overflow = 'auto';
                 updatePlayerInfo(); // Atualiza avatar e pontos
+                
+                // --- NOVO: Sincroniza com o backend ao fechar ---
+                updatePlayerInBackend();
+
                 renderMap();      // Redesenha o mapa para refletir o progresso
             }
 
@@ -395,6 +399,36 @@
                 }
 
             });
+
+            // --- NOVO: Função para enviar dados ao backend ---
+            async function updatePlayerInBackend() {
+                const studentDataRaw = localStorage.getItem('studentData');
+                const score = parseInt(localStorage.getItem('playerScore') || '0');
+                const unlockedStep = parseInt(localStorage.getItem('unlockedStep') || '1');
+
+                if (!studentDataRaw) return; // Não faz nada se não houver dados do aluno
+
+                const studentData = JSON.parse(studentDataRaw);
+                const payload = {
+                    name: studentData.name,
+                    avatar: studentData.avatar,
+                    score: score,
+                    unlocked_step: unlockedStep
+                };
+
+                try {
+                    // A URL aponta para o servidor Flask que criaremos
+                    await fetch('http://127.0.0.1:5000/api/player', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    console.log("Progresso do jogador sincronizado com o backend.");
+                } catch (error) {
+                    console.error("Falha ao sincronizar dados do jogador:", error);
+                    // Opcional: mostrar um aviso ao usuário de que o progresso não foi salvo online.
+                }
+            }
 
             function animateScore(startScore, endScore) {
                 const duration = 1500; // Duração da animação em milissegundos (1.5s)
