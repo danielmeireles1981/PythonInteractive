@@ -161,11 +161,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const age = document.getElementById('student-age').value;
             const experienceLevel = document.querySelector('input[name="experience-level"]:checked').value;
             const interestArea = document.querySelector('input[name="interest-area"]:checked').value;
+            const avatar = document.querySelector('input[name="avatar"]:checked').value;
 
             // Criar objeto JSON
             const studentData = {
                 name: name,
                 age: parseInt(age),
+                avatar: avatar,
                 experienceLevel: experienceLevel,
                 interestArea: interestArea
             };
@@ -992,13 +994,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Lógica para Geração de Certificado PDF ---
     const generatePdfBtn = document.getElementById('generate-pdf-btn');
     if (generatePdfBtn) {
-        generatePdfBtn.addEventListener('click', async () => { // 1. Tornar a função assíncrona
+        generatePdfBtn.addEventListener('click', async () => {
             const savedData = localStorage.getItem('studentData');
+            const currentScore = parseInt(localStorage.getItem('playerScore') || '0');
+            const MAX_POSSIBLE_SCORE = 160; // 16 etapas que dão 10 pontos cada
+
             let studentName = '';
             if (savedData) {
                 const studentData = JSON.parse(savedData);
                 studentName = studentData.name || '';
             }
+
+            // Verifica se o aluno alcançou a pontuação máxima para o certificado dourado
+            const isGoldenCertificate = currentScore === MAX_POSSIBLE_SCORE;
+
 
             if (!studentName.trim()) {
                 alert("Não foi possível encontrar seu nome. Por favor, volte para a Etapa 1 e preencha o formulário.");
@@ -1012,24 +1021,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 format: 'a4'
             });
 
-            // --- NOVO DESIGN DO CERTIFICADO ---
+            // --- DESIGN DO CERTIFICADO (PADRÃO OU DOURADO) ---
 
-            const pythonBlue = '#3776AB';
-            const pythonYellow = '#FFD43B';
+            // Define as cores com base no tipo de certificado
+            const primaryColor = isGoldenCertificate ? '#D4AF37' : '#3776AB'; // Dourado ou Azul Python
+            const secondaryColor = isGoldenCertificate ? '#FFD700' : '#FFD43B'; // Amarelo Dourado ou Amarelo Python
+            const backgroundColor = isGoldenCertificate ? 
+                doc.internal.createLinearGradient(0, 0, 297, 210, [{offset: 0, color: '#FFF8E1'}, {offset: 1, color: '#FFE082'}]) : 
+                '#f0f8ff'; // Gradiente Dourado ou AliceBlue
+
             const darkText = '#212529';
             const lightText = '#6c757d';
 
-            // Fundo com cor sólida (gradiente e fonte customizada removidos para corrigir erros)
-            const backgroundColor = '#f0f8ff'; // AliceBlue
             doc.setFillColor(backgroundColor);
             doc.rect(0, 0, 297, 210, 'F');
 
             // Bordas decorativas
-            doc.setDrawColor(pythonBlue);
+            doc.setDrawColor(primaryColor);
             doc.setLineWidth(1.5);
             doc.rect(10, 10, 277, 190);
 
-            doc.setDrawColor(pythonYellow);
+            doc.setDrawColor(secondaryColor);
             doc.setLineWidth(0.5);
             doc.rect(12, 12, 273, 186);
 
@@ -1053,19 +1065,20 @@ document.addEventListener('DOMContentLoaded', () => {
             doc.addImage(logoImage, 'PNG', logoX, logoY, logoWidth, logoHeight);
 
             // Título
-            doc.setTextColor(pythonBlue);
+            doc.setTextColor(primaryColor);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(36);
-            doc.text('Certificado de Conclusão', 148.5, 85, { align: 'center' });
+            const certificateTitle = isGoldenCertificate ? 'Certificado de Excelência (Ouro)' : 'Certificado de Conclusão';
+            doc.text(certificateTitle, 148.5, 85, { align: 'center' });
 
             // Texto "concedido a"
             doc.setTextColor(darkText);
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(18);
-            doc.text('Este certificado é concedido a', 148.5, 95, { align: 'center' });
+            doc.text('Este certificado é concedido a', 148.5, 100, { align: 'center' });
 
             // Nome do Aluno
-            doc.setTextColor(pythonBlue);
+            doc.setTextColor(primaryColor);
             doc.setFont('times', 'bolditalic');
             doc.setFontSize(32);
             doc.text(studentName, 148.5, 115, { align: 'center' });
@@ -1089,6 +1102,43 @@ document.addEventListener('DOMContentLoaded', () => {
             doc.text('Este certificado é gerado para fins educacionais e de demonstração. Não possui validade como documento formal.', 148.5, 180, { align: 'center' });
 
             doc.save(`Certificado-Python-${studentName.replace(/ /g, '_')}.pdf`);
+
+            // --- NOVO: Salva/Atualiza o registro do aluno no "banco de dados" local ---
+            try {
+                // Pega o registro de certificados existente ou cria um novo array
+                let certificateRegistry = JSON.parse(localStorage.getItem('certificateRegistry') || '[]');
+
+                // Coleta os dados atuais do aluno
+                const studentProgress = {
+                    studentInfo: JSON.parse(localStorage.getItem('studentData') || '{}'),
+                    playerScore: parseInt(localStorage.getItem('playerScore') || '0'),
+                    unlockedStep: parseInt(localStorage.getItem('unlockedStep') || '1'),
+                    researchNotes: localStorage.getItem('pythonResearchNotes') || '',
+                    selectedTheme: localStorage.getItem('theme') || 'light',
+                    lastCompletionDate: new Date().toISOString()
+                };
+
+                // Verifica se o aluno já existe no registro pelo nome
+                const studentIndex = certificateRegistry.findIndex(
+                    entry => entry.studentInfo.name === studentProgress.studentInfo.name
+                );
+
+                if (studentIndex > -1) {
+                    // Aluno encontrado, atualiza o registro existente
+                    certificateRegistry[studentIndex] = studentProgress;
+                    console.log(`Registro do aluno '${studentName}' atualizado.`);
+                } else {
+                    // Aluno não encontrado, adiciona um novo registro
+                    certificateRegistry.push(studentProgress);
+                    console.log(`Novo registro para o aluno '${studentName}' adicionado.`);
+                }
+
+                // Salva o registro atualizado de volta no localStorage
+                localStorage.setItem('certificateRegistry', JSON.stringify(certificateRegistry, null, 2));
+
+            } catch (error) {
+                console.error("Erro ao salvar/atualizar o registro do certificado:", error);
+            }
         });
     }
 });

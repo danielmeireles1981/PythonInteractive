@@ -80,7 +80,9 @@ body::before {
     padding: 20px;
     background-color: rgba(13, 43, 78, 0.85);
     border-bottom: 3px solid var(--python-yellow);
-    position: relative;
+    position: sticky;
+    top: 0;
+    z-index: 10;
     overflow: hidden;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -104,14 +106,54 @@ body::before {
 
 .gamification-stats {
     margin-top: 15px;
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0, 0, 0, 0.3);
     padding: 10px 20px;
     border-radius: 20px;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
     border: 1px solid var(--python-yellow);
     transition: transform 0.3s ease;
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
+}
+
+.player-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.player-avatar {
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--python-yellow);
+}
+
+.player-avatar.animate-in {
+    animation: avatar-pop-in 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+@keyframes avatar-pop-in {
+    0% {
+        transform: scale(0) rotate(-180deg);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+.player-name {
+    font-size: 1.1rem;
+    font-weight: bold;
 }
 
 .gamification-stats button {

@@ -51,6 +51,93 @@
                             <input type="number" id="student-age" name="student-age" min="10" max="99" required>
                         </div>
 
+                        <!-- Seção de Seleção de Avatar -->
+                        <div class="form-group avatar-selection-group">
+                            <p>Escolha seu avatar:</p>
+                            <div class="avatar-options">
+                                <label>
+                                    <input type="radio" name="avatar" value="👩‍💻" required> <!-- Mulher programadora -->
+                                    <div class="avatar-card">👩‍💻</div>
+                                </label>
+                                <label>
+                                    <input type="radio" name="avatar" value="👨🏾‍💻" required> <!-- Homem programador negro -->
+                                    <div class="avatar-card">👨🏾‍💻</div>
+                                </label>
+                                <label>
+                                    <input type="radio" name="avatar" value="🧑‍🚀" required> <!-- Pessoa astronauta (gênero neutro) -->
+                                    <div class="avatar-card">🧑‍🚀</div>
+                                </label>
+                                <label>
+                                    <input type="radio" name="avatar" value="🧕" required> <!-- Mulher com hijab -->
+                                    <div class="avatar-card">🧕</div>
+                                </label>
+                                <label>
+                                    <input type="radio" name="avatar" value="🧑‍🦽" required> <!-- Pessoa em cadeira de rodas -->
+                                    <div class="avatar-card">🧑‍🦽</div>
+                                </label>
+                                <label>
+                                    <input type="radio" name="avatar" value="👩‍🔬" required> <!-- Mulher cientista -->
+                                    <div class="avatar-card">👩‍🔬</div>
+                                </label>
+                                <label>
+                                    <input type="radio" name="avatar" value="🧓" required> <!-- Pessoa idosa -->
+                                    <div class="avatar-card">🧓</div>
+                                </label>
+                                <label>
+                                    <input type="radio" name="avatar" value="🤖" required> <!-- Robô -->
+                                    <div class="avatar-card">🤖</div>
+                                </label>
+                                <label>
+                                    <input type="radio" name="avatar" value="🧑🏻‍🏫" required> <!-- Pessoa professora -->
+                                    <div class="avatar-card">🧑🏻‍🏫</div>
+                                </label>
+                                <label>
+                                    <input type="radio" name="avatar" value="👩‍🌾" required> <!-- Mulher agricultora -->
+                                    <div class="avatar-card">👩‍🌾</div>
+                                </label>
+                                <label>
+                                    <input type="radio" name="avatar" value="🧝" required> <!-- Elfo/Fantasia -->
+                                    <div class="avatar-card">🧝</div>
+                                </label>
+                                <label>
+                                    <input type="radio" name="avatar" value="🧑‍🎤" required> <!-- Pessoa cantora -->
+                                    <div class="avatar-card">🧑‍🎤</div>
+                                </label>
+                                <label>
+                                    <input type="radio" name="avatar" value="👨‍🎨" required> <!-- Homem artista -->
+                                    <div class="avatar-card">👨‍🎨</div>
+                                </label>
+                                <label>
+                                    <input type="radio" name="avatar" value="👩🏿‍⚕️" required> <!-- Mulher médica negra -->
+                                    <div class="avatar-card">👩🏿‍⚕️</div>
+                                </label>
+                                <label>
+                                    <input type="radio" name="avatar" value="🧑‍⚖️" required> <!-- Pessoa juíza -->
+                                    <div class="avatar-card">🧑‍⚖️</div>
+                                </label>
+                                <label>
+                                    <input type="radio" name="avatar" value="👨‍🚒" required> <!-- Homem bombeiro -->
+                                    <div class="avatar-card">👨‍🚒</div>
+                                </label>
+                                <label>
+                                    <input type="radio" name="avatar" value="🧏" required> <!-- Pessoa surda -->
+                                    <div class="avatar-card">🧏</div>
+                                </label>
+                                <label>
+                                    <input type="radio" name="avatar" value="👨‍🦳" required> <!-- Homem de cabelo branco -->
+                                    <div class="avatar-card">👨‍🦳</div>
+                                </label>
+                                <label>
+                                    <input type="radio" name="avatar" value="👩‍🦰" required> <!-- Mulher ruiva -->
+                                    <div class="avatar-card">👩‍🦰</div>
+                                </label>
+                                <label>
+                                    <input type="radio" name="avatar" value="👽" required> <!-- Alienígena -->
+                                    <div class="avatar-card">👽</div>
+                                </label>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <p>1. Qual seu nível de experiência com programação?</p>
                             <label><input type="radio" name="experience-level" value="beginner" required> Nenhum, estou
@@ -120,6 +207,42 @@
                     border-radius: 5px;
                     display: none;
                     /* Oculto por padrão */
+                }
+
+                /* Estilos para a seleção de avatar */
+                .avatar-selection-group p {
+                    font-weight: bold;
+                    margin-bottom: 10px;
+                }
+
+                .avatar-options {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 15px;
+                    justify-content: center;
+                }
+
+                .avatar-options label {
+                    cursor: pointer;
+                }
+
+                .avatar-options input[type="radio"] {
+                    display: none; /* Esconde o botão de rádio padrão */
+                }
+
+                .avatar-card {
+                    font-size: 2.5rem;
+                    padding: 15px;
+                    border: 2px solid var(--border-color);
+                    border-radius: 8px;
+                    transition: all 0.2s ease-in-out;
+                }
+
+                .avatar-options input[type="radio"]:checked + .avatar-card {
+                    border-color: var(--primary);
+                    background-color: var(--highlight-bg);
+                    transform: scale(1.1);
+                    box-shadow: 0 0 10px var(--primary);
                 }
             </style>
 

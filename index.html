@@ -38,6 +38,10 @@
         <h1>🐍 Trilha de Aprendizagem Python 🐍</h1>
         <p>Siga o caminho da serpente e desbloqueie as etapas para se tornar um mestre em Python!</p>
         <div class="gamification-stats">
+            <div class="player-info">
+                <span id="player-avatar" class="player-avatar"></span>
+                <span id="player-name" class="player-name"></span>
+            </div>
             <span id="player-score">🏆 Pontos: 0</span>
             <button id="reset-progress-btn" title="Resetar todo o progresso e pontos">🔄 Resetar</button>
         </div>
@@ -233,6 +237,8 @@
         document.addEventListener('DOMContentLoaded', () => {
             const stopsContainer = document.querySelector('.map-stops');
             const scoreDisplay = document.getElementById('player-score');
+            const avatarDisplay = document.getElementById('player-avatar');
+            const playerNameDisplay = document.getElementById('player-name');
             const toast = document.getElementById('toast-notification');
 
             const modal = document.getElementById('lesson-modal');
@@ -259,11 +265,31 @@
                 { step: 17, 'title': '📜 Certificado', icon: '📜' }
             ];
 
-            function updateScoreDisplay() {
+            function updatePlayerInfo() {
+                // Atualiza a pontuação
                 const currentScore = parseInt(localStorage.getItem('playerScore') || '0');
                 scoreDisplay.textContent = `🏆 Pontos: ${currentScore}`;
-            }
 
+                // Atualiza o avatar
+                const studentDataRaw = localStorage.getItem('studentData');
+                if (studentDataRaw) {
+                    const studentData = JSON.parse(studentDataRaw);
+                    const currentAvatar = avatarDisplay.textContent;
+                    const newAvatar = studentData.avatar || '🐍';
+
+                    // Anima o avatar apenas se ele for novo ou diferente
+                    if (newAvatar && currentAvatar !== newAvatar) {
+                        avatarDisplay.textContent = newAvatar;
+                        avatarDisplay.classList.add('animate-in');
+                        // Remove a classe após a animação para não repetir
+                        avatarDisplay.addEventListener('animationend', () => {
+                            avatarDisplay.classList.remove('animate-in');
+                        }, { once: true });
+                    }
+
+                    playerNameDisplay.textContent = studentData.name || '';
+                }
+            }
 
             function renderMap() {
                 // Pega o progresso salvo. O padrão é 1 (primeira etapa desbloqueada).
@@ -324,7 +350,8 @@
                 modal.style.display = 'none';
                 iframe.src = ''; // Limpa o iframe para parar a execução
                 document.body.style.overflow = 'auto';
-                renderMap(); // Redesenha o mapa para refletir o progresso
+                updatePlayerInfo(); // Atualiza avatar e pontos
+                renderMap();      // Redesenha o mapa para refletir o progresso
             }
 
             closeModalBtn.addEventListener('click', closeModal);
@@ -366,6 +393,7 @@
                         showReward(`+${points} Pontos! Atividades da etapa concluídas!`);
                     }, { once: true });
                 }
+
             });
 
             function animateScore(startScore, endScore) {
@@ -438,13 +466,14 @@
                     // Limpa dados relacionados às aulas
                     localStorage.removeItem('studentData');
                     localStorage.removeItem('pythonResearchNotes');
+                    localStorage.removeItem('theme'); // Limpa também o tema
 
                     // Recarrega a página para aplicar as mudanças
                     window.location.reload();
                 }
             });
 
-            updateScoreDisplay(); // Atualiza a pontuação na carga inicial
+            updatePlayerInfo(); // Atualiza avatar e pontuação na carga inicial
             renderMap(); // Renderiza o mapa na carga inicial
 
         });
