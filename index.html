@@ -203,6 +203,17 @@
 
     </main>
 
+    <!-- Seção Hall da Fama -->
+    <section class="hall-of-fame">
+        <h2>🏆 Hall da Fama 🏆</h2>
+        <p>Os melhores aventureiros da Trilha Python!</p>
+        <ul class="hall-of-fame-list" id="hall-of-fame-list">
+            <!-- O ranking será preenchido pelo JavaScript -->
+            <li>Carregando ranking...</li>
+        </ul>
+    </section>
+
+
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script>
         // --- Script para Animação de Fundo Dinâmica ---
@@ -239,6 +250,7 @@
             const scoreDisplay = document.getElementById('player-score');
             const avatarDisplay = document.getElementById('player-avatar');
             const playerNameDisplay = document.getElementById('player-name');
+            const hallOfFameList = document.getElementById('hall-of-fame-list');
             const toast = document.getElementById('toast-notification');
 
             const modal = document.getElementById('lesson-modal');
@@ -354,6 +366,7 @@
                 
                 // --- NOVO: Sincroniza com o backend ao fechar ---
                 updatePlayerInBackend();
+                updateAndRenderHallOfFame(); // Atualiza o Hall da Fama
 
                 renderMap();      // Redesenha o mapa para refletir o progresso
             }
@@ -399,6 +412,36 @@
                 }
 
             });
+
+            // --- NOVO: Função para buscar e renderizar o Hall da Fama ---
+            async function updateAndRenderHallOfFame() {
+                hallOfFameList.innerHTML = '<li>Carregando ranking...</li>';
+                try {
+                    const response = await fetch('http://127.0.0.1:5000/api/hall-of-fame');
+                    if (!response.ok) {
+                        throw new Error(`Erro na API: ${response.statusText}`);
+                    }
+                    const hallOfFame = await response.json();
+
+                    hallOfFameList.innerHTML = ''; // Limpa a lista
+                    if (hallOfFame.length === 0) {
+                        hallOfFameList.innerHTML = '<li>O ranking ainda está vazio. Seja o primeiro a pontuar!</li>';
+                        return;
+                    }
+
+                    hallOfFame.forEach((player, index) => {
+                        const rank = index + 1;
+                        const medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : `${rank}.`;
+                        const li = document.createElement('li');
+                        li.className = `rank-${rank}`;
+                        li.innerHTML = `<div class="player-rank-info"><span class="rank">${medal}</span><span class="player-avatar">${player.avatar}</span> <span class="player-name">${player.name}</span></div><span class="player-score-hof">${player.score} Pontos</span>`;
+                        hallOfFameList.appendChild(li);
+                    });
+                } catch (error) {
+                    console.error("Falha ao buscar Hall da Fama:", error);
+                    hallOfFameList.innerHTML = '<li>Erro ao carregar o ranking. Tente novamente mais tarde.</li>';
+                }
+            }
 
             // --- NOVO: Função para enviar dados ao backend ---
             async function updatePlayerInBackend() {
@@ -507,9 +550,49 @@
                 }
             });
 
-            updatePlayerInfo(); // Atualiza avatar e pontuação na carga inicial
-            renderMap(); // Renderiza o mapa na carga inicial
+            // --- NOVO: Função para carregar o progresso do backend ---
+            async function loadPlayerProgressFromBackend() {
+                const studentDataRaw = localStorage.getItem('studentData');
+                if (!studentDataRaw) {
+                    console.log("Nenhum dado de aluno encontrado localmente. O aluno precisa se registrar primeiro.");
+                    return; // Encerra se não houver aluno logado
+                }
 
+                const studentData = JSON.parse(studentDataRaw);
+                const playerName = studentData.name;
+
+                if (!playerName) return;
+
+                try {
+                    const response = await fetch(`http://127.0.0.1:5000/api/player/${encodeURIComponent(playerName)}`);
+                    if (!response.ok) {
+                        if (response.status === 404) {
+                            console.log("Jogador novo. O progresso será criado no backend na primeira sincronização.");
+                        } else {
+                            throw new Error(`Erro na API: ${response.statusText}`);
+                        }
+                        return; // Não faz nada se o jogador não for encontrado
+                    }
+
+                    const playerData = await response.json();
+                    
+                    // Atualiza o localStorage com os dados do backend
+                    localStorage.setItem('playerScore', playerData.score);
+                    localStorage.setItem('unlockedStep', playerData.unlocked_step);
+
+                    console.log("Progresso do jogador carregado do backend:", playerData);
+
+                } catch (error) {
+                    console.error("Falha ao carregar progresso do jogador do backend:", error);
+                }
+            }
+
+            // --- Lógica de Inicialização da Página ---
+            loadPlayerProgressFromBackend().then(() => {
+                updatePlayerInfo(); // Atualiza avatar e pontuação
+                updateAndRenderHallOfFame(); // Renderiza o Hall da Fama
+                renderMap(); // Renderiza o mapa
+            });
         });
     </script>
 </body>

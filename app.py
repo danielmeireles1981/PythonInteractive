@@ -69,6 +69,27 @@ def update_player():
     db.session.commit() # Salva as alterações no banco de dados
     return jsonify(player.to_dict()), 200
 
+@app.route('/api/player/<string:name>', methods=['GET'])
+def get_player(name):
+    """
+    Endpoint para buscar os dados de um jogador específico pelo nome.
+    """
+    player = Player.query.filter_by(name=name).first()
+    if player:
+        return jsonify(player.to_dict())
+    else:
+        return jsonify({'error': 'Jogador não encontrado'}), 404
+
+@app.route('/api/hall-of-fame', methods=['GET'])
+def get_hall_of_fame():
+    """
+    Endpoint para buscar os melhores jogadores (Hall da Fama).
+    Retorna os 10 melhores jogadores ordenados por pontuação.
+    """
+    top_players = Player.query.order_by(Player.score.desc()).limit(10).all()
+    return jsonify([player.to_dict() for player in top_players])
+
+
 # --- Inicialização ---
 if __name__ == '__main__':
     with app.app_context():
@@ -76,4 +97,3 @@ if __name__ == '__main__':
         db.create_all()
     # Roda o servidor Flask
     app.run(debug=True, port=5000)
-
